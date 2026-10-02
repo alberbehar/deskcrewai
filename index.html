@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DeskCrew AI — Masaüstündeki yapay zeka ekibin</title>
+<meta name="description" content="DeskCrew AI: maillerini okuyan, internette araştıran, dosyalarını düzenleyen ve bilgisayarını senin yerine kullanan yapay zeka ekibi. Windows için ücretsiz indir.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f7f9;--panel:#fff;--ink:#121820;--muted:#5d6876;--line:#e3e7ec;--brand:#2f6fe0;--brand2:#1ca078;--soft:#eef2f7;--mail:#d9485f;--web:#2f6fe0;--file:#d98a1c;--time:#1f9b74;--op:#8b5cf6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0f141b;--panel:#161d27;--ink:#e9eef4;--muted:#9aa6b4;--line:#263140;--soft:#1c2531}}
+:root[data-theme="dark"]{--bg:#0f141b;--panel:#161d27;--ink:#e9eef4;--muted:#9aa6b4;--line:#263140;--soft:#1c2531}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:16px;height:64px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;text-decoration:none}
+.logo b{background:linear-gradient(135deg,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.nav .sp{flex:1}
+.nav a.l{text-decoration:none;color:var(--muted);font-size:14.5px;font-weight:500}
+.nav a.l:hover{color:var(--ink)}
+.lang{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.lang button{border:0;background:none;color:var(--muted);font:600 12.5px Inter,sans-serif;padding:6px 9px;cursor:pointer}
+.lang button.on{background:var(--ink);color:var(--bg)}
+.hero{padding:48px 20px 40px;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.pill{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--line);background:var(--panel);border-radius:99px;padding:5px 12px;font-size:13px;color:var(--muted);font-weight:500}
+.pill i{width:8px;height:8px;border-radius:50%;background:var(--brand2);display:inline-block}
+h1{font-size:clamp(34px,5vw,54px);line-height:1.08;letter-spacing:-.025em;margin:18px 0 16px;font-weight:800}
+h1 span{background:linear-gradient(135deg,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:18px;color:var(--muted);max-width:520px;margin:0 0 28px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;border-radius:12px;padding:14px 20px;font-size:15.5px;border:1px solid transparent;cursor:pointer}
+.btn.pri{background:var(--ink);color:var(--bg)}
+.btn.pri:hover{transform:translateY(-1px)}
+.btn.sec{background:var(--panel);border-color:var(--line);color:var(--muted);cursor:default}
+.btn small{display:block;font-weight:500;font-size:12px;opacity:.75}
+.note{font-size:13px;color:var(--muted);margin-top:12px}
+.mock{background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:0 30px 60px -30px rgba(10,20,40,.35);overflow:hidden}
+.mock .bar{display:flex;gap:6px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.mock .bar i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.mock .body{display:grid;grid-template-columns:150px 1fr;min-height:320px}
+.mock .side{border-right:1px solid var(--line);padding:12px;display:flex;flex-direction:column;gap:8px}
+.emp{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;padding:7px;border-radius:9px;border:1px solid var(--line)}
+.emp .av{width:22px;height:22px;border-radius:7px;background:var(--c);flex:none}
+.emp small{display:block;font-weight:500;color:var(--muted);font-size:10.5px}
+.chat{padding:16px;display:flex;flex-direction:column;gap:10px;font-size:13px}
+.msg{max-width:85%;padding:9px 12px;border-radius:12px;line-height:1.45}
+.msg.u{align-self:flex-end;background:var(--ink);color:var(--bg)}
+.msg.a{background:var(--soft)}
+.msg.a b{color:var(--c)}
+section{padding:56px 0}
+h2{font-size:clamp(26px,3.4vw,36px);letter-spacing:-.02em;margin:0 0 10px;font-weight:800}
+.sub{color:var(--muted);margin:0 0 32px;max-width:640px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px}
+.card .ic{width:40px;height:40px;border-radius:12px;background:color-mix(in srgb,var(--c) 14%,transparent);color:var(--c);display:grid;place-items:center;margin-bottom:12px}
+.card h3{margin:0 0 6px;font-size:17px}
+.card p{margin:0;color:var(--muted);font-size:14.5px}
+.steps{counter-reset:s;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.step{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;position:relative}
+.step:before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--ink);color:var(--bg);font-weight:700;font-size:14px;margin-bottom:10px}
+.step h3{margin:0 0 6px;font-size:16.5px}
+.step p{margin:0;color:var(--muted);font-size:14.5px}
+.step a{color:var(--brand)}
+details{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:10px}
+summary{font-weight:600;cursor:pointer}
+details p{color:var(--muted);margin:10px 0 0;font-size:14.5px}
+.dl{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-radius:22px;padding:44px;display:flex;gap:24px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.dl h2{color:#fff}
+.dl p{margin:0;opacity:.9}
+.dl .btn.pri{background:#fff;color:#121820}
+.dl.top{margin-top:28px;padding:34px 40px}
+.btn.ghost{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.35);color:#fff;cursor:default}
+footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:13.5px}
+footer .wrap{display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
+@media (max-width:860px){.hero{grid-template-columns:1fr;padding-top:44px}.grid,.steps{grid-template-columns:1fr}.nav a.l{display:none}.mock .body{grid-template-columns:1fr}.mock .side{display:none}.dl,.dl.top{padding:26px}}
+</style>
+</head>
+<body>
+<header><div class="wrap nav">
+  <a class="logo" href="#"><svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a6cf0"/><stop offset="1" stop-color="#1ca078"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="15" fill="url(#g)"/><rect x="14" y="20" width="36" height="26" rx="8" fill="#fff"/><circle cx="25" cy="33" r="3.6" fill="#18202b"/><circle cx="39" cy="33" r="3.6" fill="#18202b"/><rect x="29" y="10" width="6" height="10" rx="3" fill="#fff"/></svg>DeskCrew <b>AI</b></a>
+  <span class="sp"></span>
+  <a class="l" href="#ozellikler" data-i="nav1">Özellikler</a>
+  <a class="l" href="#kurulum" data-i="nav2">Kurulum</a>
+  <a class="l" href="#sss" data-i="nav3">SSS</a>
+  <div class="lang"><button id="lTr" class="on">TR</button><button id="lEn">EN</button></div>
+</div></header>
+
+<main>
+<div class="wrap"><div class="dl top">
+  <div><h2 data-i="bh">Ekibini bugün işe al</h2><p data-i="bp">Ücretsiz indir, bir dakikada kur.</p></div>
+  <div class="cta">
+    <a class="btn pri" href="https://github.com/alberbehar/deskcrewai/releases/latest/download/DeskCrewAI-Setup.exe">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.5 10.5 4.4v7.1H3V5.5Zm0 13 7.5 1.1v-7H3v5.9Zm8.4 1.2L21 21v-8.4h-9.6v7.1Zm0-15.4v7.2H21V3l-9.6 1.3Z"/></svg>
+      <span>Windows<small data-i="dlwin2">Windows 10/11 · Ücretsiz</small></span>
+    </a>
+    <span class="btn ghost" title="Yakında">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.8 1.2 1.8 2.6 3.1 2.6 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8 0 0-2.5-1-2.5-4.3ZM13.9 4.9c.7-.8 1.1-1.9 1-3-1 0-2.2.7-2.9 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.2-.6 2.9-1.4Z"/></svg>
+      <span>macOS<small data-i="soon">Yakında</small></span>
+    </span>
+  </div>
+</div></div>
+<div class="wrap hero">
+  <div>
+    <span class="pill"><i></i><span data-i="pill">Windows için ücretsiz</span></span>
+    <h1 data-i="h1">Masaüstündeki <span>yapay zeka ekibin</span></h1>
+    <p class="lead" data-i="lead">Maillerini okuyup özetleyen, internette araştıran, dosyalarını düzenleyen, işleri zamanında yapan ve bilgisayarını senin yerine kullanan bir ekip. Sen sadece söyle.</p>
+    <p class="note" data-i="note">Kendi Anthropic API anahtarınla çalışır. Ayarların ve şifrelerin sadece senin bilgisayarında saklanır.</p>
+  </div>
+  <div class="mock" aria-hidden="true">
+    <div class="bar"><i></i><i></i><i></i></div>
+    <div class="body">
+      <div class="side">
+        <div class="emp" style="--c:#18202b"><span class="av"></span><div>Müdür<small>CEO</small></div></div>
+        <div class="emp" style="--c:var(--mail)"><span class="av"></span><div>Posta<small>E-posta</small></div></div>
+        <div class="emp" style="--c:var(--web)"><span class="av"></span><div>Gezgin<small>Araştırmacı</small></div></div>
+        <div class="emp" style="--c:var(--file)"><span class="av"></span><div>Dosyacı<small>Arşiv</small></div></div>
+        <div class="emp" style="--c:var(--op)"><span class="av"></span><div>Operatör<small>Bilgisayar</small></div></div>
+      </div>
+      <div class="chat">
+        <div class="msg u" data-i="m1">Ekip, bugünkü raporlarınızı bana mail atın</div>
+        <div class="msg a" style="--c:var(--mail)" data-i="m2"><b>Posta:</b> 4 önemli mail var, özetini gönderdim.</div>
+        <div class="msg a" style="--c:var(--web)" data-i="m3"><b>Gezgin:</b> Dolar kuru ve haber özeti mailinde.</div>
+        <div class="msg u" data-i="m4">WhatsApp'tan Ali'ye "akşam 8'de görüşelim" yaz</div>
+        <div class="msg a" style="--c:var(--op)" data-i="m5"><b>Operatör:</b> Gönderdim ✓</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="ozellikler"><div class="wrap">
+  <h2 data-i="fh">Bir ekip, tek sohbet penceresi</h2>
+  <p class="sub" data-i="fs">Her çalışanın bir görevi ve yetkisi var. İstediğin kadar yeni çalışan ekleyebilir, görevlerini değiştirebilirsin.</p>
+  <div class="grid">
+    <div class="card" style="--c:var(--mail)"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div><h3 data-i="c1h">Mail asistanı</h3><p data-i="c1p">Gmail'ini okur, özetler, taslak yazar, istersen gönderir. Beklediğin kişiden mail gelince anında haber verir.</p></div>
+    <div class="card" style="--c:var(--web)"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div><h3 data-i="c2h">Araştırmacı</h3><p data-i="c2p">İnternette arar, sayfaları okur, kaynaklı kısa özetler çıkarır: haberler, kurlar, hava durumu.</p></div>
+    <div class="card" style="--c:var(--file)"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg></div><h3 data-i="c3h">Dosya düzenleme</h3><p data-i="c3p">İzin verdiğin klasörleri türlerine göre düzenler, dosya bulur. Dosya silmez.</p></div>
+    <div class="card" style="--c:var(--op)"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div><h3 data-i="c4h">Bilgisayar kontrolü</h3><p data-i="c4p">Ekrana bakıp uygulama açar, tıklar, yazar; WhatsApp'tan mesaj gönderir. Önemli adımlarda önce sana sorar.</p></div>
+    <div class="card" style="--c:var(--time)"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3 data-i="c5h">Zamanlanmış işler</h3><p data-i="c5p">"Her sabah 8'de maillerimi özetle" de, zamanı gelince kendiliğinden yapsın.</p></div>
+    <div class="card" style="--c:#18202b"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 14.5c2.8.2 5 2.5 5 5.5"/></svg></div><h3 data-i="c6h">Müdür ve ekip toplantısı</h3><p data-i="c6p">Müdür işi bölüp ekibe dağıtır. "Ekip" sohbetinde herkes sırayla cevap verir.</p></div>
+  </div>
+</div></section>
+
+<section id="kurulum"><div class="wrap">
+  <h2 data-i="sh">3 adımda başla</h2>
+  <p class="sub" data-i="ss">Kurulum bir dakika sürer. Yeni sürüm çıkınca program haber verir, tek tıkla güncellenir.</p>
+  <div class="steps">
+    <div class="step"><h3 data-i="s1h">İndir ve kur</h3><p data-i="s1p">DeskCrewAI-Setup.exe'yi aç, "İleri"ye bas. Yönetici izni gerekmez. Windows uyarı verirse "Ek bilgi → Yine de çalıştır".</p></div>
+    <div class="step"><h3 data-i="s2h">API anahtarını ekle</h3><p><span data-i="s2p">Ayarlar'a Anthropic API anahtarını yapıştır.</span> <a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a></p></div>
+    <div class="step"><h3 data-i="s3h">Gmail'i bağla (isteğe bağlı)</h3><p><span data-i="s3p">Gmail adresini ve uygulama şifresini gir.</span> <a href="https://myaccount.google.com/apppasswords" target="_blank" rel="noopener">myaccount.google.com/apppasswords</a></p></div>
+  </div>
+</div></section>
+
+<section id="sss"><div class="wrap">
+  <h2 data-i="qh">Sık sorulan sorular</h2>
+  <details><summary data-i="q1">Ücretli mi?</summary><p data-i="a1">Program ücretsiz. Yapay zeka için kendi Anthropic API anahtarını kullanırsın, kullandığın kadar Anthropic'e ödersin. Normal günlük kullanım genelde birkaç dolar tutar.</p></details>
+  <details><summary data-i="q2">Bilgilerim güvende mi?</summary><p data-i="a2">API anahtarın ve Gmail şifren Windows Kimlik Bilgisi Yöneticisi'nde, sadece senin bilgisayarında saklanır. Mailler yalnızca sen istediğinde gönderilir; asistan dosya silmez.</p></details>
+  <details><summary data-i="q3">Windows "bilinmeyen yayıncı" uyarısı veriyor</summary><p data-i="a3">Program henüz dijital olarak imzalı olmadığı için SmartScreen bu uyarıyı gösterir. "Ek bilgi"ye tıklayıp "Yine de çalıştır" diyebilirsin.</p></details>
+  <details><summary data-i="q4">Mac sürümü ne zaman?</summary><p data-i="a4">Üzerinde çalışıyoruz. Şimdilik Windows 10 ve 11 destekleniyor.</p></details>
+  <details><summary data-i="q5">Nasıl kaldırırım?</summary><p data-i="a5">Ayarlar → Uygulamalar'dan "DeskCrew AI"ı kaldır. Tekrar kurarsan ayarların geri gelir.</p></details>
+</div></section>
+
+</main>
+
+<footer><div class="wrap"><span>© 2026 DeskCrew AI</span><span><a href="https://github.com/alberbehar/deskcrewai/releases" data-i="rel">Tüm sürümler</a></span></div></footer>
+
+<script>
+const EN={nav1:"Features",nav2:"Setup",nav3:"FAQ",pill:"Free for Windows",h1:'Your <span>AI team</span> on the desktop',
+lead:"A team that reads and summarizes your email, researches the web, organizes your files, runs tasks on schedule and uses your computer for you. Just say what you need.",
+dlwin:"Download for Windows",dlwin2:"Windows 10/11 · Free",soon:"Coming soon",note:"Runs with your own Anthropic API key. Your settings and passwords stay on your computer.",
+m1:"Team, email me today's reports",m2:"<b>Mail:</b> 4 important emails, summary sent.",m3:"<b>Scout:</b> Exchange rates and news are in your inbox.",m4:"Message Ali on WhatsApp: \"let's talk at 8 pm\"",m5:"<b>Operator:</b> Sent ✓",
+fh:"One team, one chat window",fs:"Each team member has a role and permissions. Add as many as you like and change their jobs anytime.",
+c1h:"Email assistant",c1p:"Reads, summarizes and drafts Gmail, sends if you ask. Alerts you instantly when the email you're waiting for arrives.",
+c2h:"Researcher",c2p:"Searches the web, reads pages and gives short, sourced summaries: news, exchange rates, weather.",
+c3h:"File organizer",c3p:"Sorts the folders you allow by type and finds files. Never deletes anything.",
+c4h:"Computer control",c4p:"Looks at the screen, opens apps, clicks, types and sends WhatsApp messages. Asks you before important steps.",
+c5h:"Scheduled tasks",c5p:"Say \"summarize my email every morning at 8\" and it just happens.",
+c6h:"Manager and team meetings",c6p:"The Manager splits work across the team. In the Team chat everyone replies in turn.",
+sh:"Start in 3 steps",ss:"Setup takes a minute. When a new version is out, the app tells you and updates in one click.",
+s1h:"Download and install",s1p:"Open DeskCrewAI-Setup.exe and click Next. No admin rights needed. If Windows warns you, click \"More info → Run anyway\".",
+s2h:"Add your API key",s2p:"Paste your Anthropic API key in Settings.",s3h:"Connect Gmail (optional)",s3p:"Enter your Gmail address and an app password.",
+qh:"FAQ",q1:"Is it paid?",a1:"The app is free. It uses your own Anthropic API key, so you pay Anthropic for what you use — usually a few dollars a day at most for normal use.",
+q2:"Is my data safe?",a2:"Your API key and Gmail password are stored in Windows Credential Manager on your computer only. Email is sent only when you ask, and the assistant never deletes files.",
+q3:"Windows shows an \"unknown publisher\" warning",a3:"The app isn't code-signed yet, so SmartScreen shows this warning. Click \"More info\" and then \"Run anyway\".",
+q4:"When is the Mac version coming?",a4:"We're working on it. Windows 10 and 11 are supported for now.",q5:"How do I uninstall?",a5:"Remove \"DeskCrew AI\" from Settings → Apps. If you reinstall, your settings come back.",
+bh:"Hire your team today",bp:"Free download, one-minute setup.",rel:"All releases"};
+const TR={};document.querySelectorAll("[data-i]").forEach(e=>TR[e.dataset.i]=e.innerHTML);
+function setLang(l){document.documentElement.lang=l;const d=l==="en"?EN:TR;document.querySelectorAll("[data-i]").forEach(e=>{if(d[e.dataset.i]!=null)e.innerHTML=d[e.dataset.i]});
+  document.getElementById("lTr").classList.toggle("on",l==="tr");document.getElementById("lEn").classList.toggle("on",l==="en");try{localStorage.setItem("dc_lang",l)}catch(e){}}
+document.getElementById("lTr").onclick=()=>setLang("tr");document.getElementById("lEn").onclick=()=>setLang("en");
+let saved=null;try{saved=localStorage.getItem("dc_lang")}catch(e){}
+setLang(saved||((navigator.language||"").toLowerCase().startsWith("tr")?"tr":"en"));
+</script>
+</body>
+</html>
