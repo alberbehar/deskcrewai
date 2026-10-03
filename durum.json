@@ -3,5 +3,6 @@
   "message": "",
   "blocked": [],
   "announcement": null,
-  "daily_send_limit": 500
+  "daily_send_limit": 500,
+  "report_url": "https://script.google.com/macros/s/AKfycbwi4F84OOw7vN9YumDE4b4pPuZfDMlw-8GAnMCBSnXqsODHSE4NQvVicgFO-X__uKDORw/exec"
 }
