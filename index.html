@@ -20,11 +20,13 @@ a{color:inherit}
 header{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .nav{display:flex;align-items:center;gap:16px;height:64px}
 .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;text-decoration:none}
+.logo .by{font-size:12px;font-weight:600;color:var(--muted);margin-left:2px;align-self:flex-end;padding-bottom:3px;white-space:nowrap}
+@media (max-width:420px){.logo .by{font-size:11px}.logo{font-size:17px;gap:7px;min-width:0}.nav{gap:10px}.logo svg{flex-shrink:0}}
 .logo b{background:linear-gradient(135deg,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent}
 .nav .sp{flex:1}
 .nav a.l{text-decoration:none;color:var(--muted);font-size:14.5px;font-weight:500}
 .nav a.l:hover{color:var(--ink)}
-.lang{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.lang{display:flex;flex-shrink:0;border:1px solid var(--line);border-radius:8px;overflow:hidden}
 .lang button{border:0;background:none;color:var(--muted);font:600 12.5px Inter,sans-serif;padding:6px 9px;cursor:pointer}
 .lang button.on{background:var(--ink);color:var(--bg)}
 .hero{padding:48px 20px 40px;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
@@ -83,7 +85,7 @@ footer .wrap{display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
 </head>
 <body>
 <header><div class="wrap nav">
-  <a class="logo" href="#"><svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a6cf0"/><stop offset="1" stop-color="#1ca078"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="15" fill="url(#g)"/><rect x="14" y="20" width="36" height="26" rx="8" fill="#fff"/><circle cx="25" cy="33" r="3.6" fill="#18202b"/><circle cx="39" cy="33" r="3.6" fill="#18202b"/><rect x="29" y="10" width="6" height="10" rx="3" fill="#fff"/></svg>DeskCrew <b>AI</b></a>
+  <a class="logo" href="#"><svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a6cf0"/><stop offset="1" stop-color="#1ca078"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="15" fill="url(#g)"/><rect x="14" y="20" width="36" height="26" rx="8" fill="#fff"/><circle cx="25" cy="33" r="3.6" fill="#18202b"/><circle cx="39" cy="33" r="3.6" fill="#18202b"/><rect x="29" y="10" width="6" height="10" rx="3" fill="#fff"/></svg>DeskCrew <b>AI</b><small class="by">by alberbehar</small></a>
   <span class="sp"></span>
   <a class="l" href="#ozellikler" data-i="nav1">Özellikler</a>
   <a class="l" href="#kurulum" data-i="nav2">Kurulum</a>
@@ -167,7 +169,7 @@ footer .wrap{display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
 
 </main>
 
-<footer><div class="wrap"><span>© 2026 DeskCrew AI</span><span><a href="https://github.com/alberbehar/deskcrewai/releases" data-i="rel">Tüm sürümler</a></span></div></footer>
+<footer><div class="wrap"><span>© 2026 DeskCrew AI · by alberbehar</span><span><a href="https://github.com/alberbehar/deskcrewai/releases" data-i="rel">Tüm sürümler</a></span></div></footer>
 
 <script>
 const EN={nav1:"Features",nav2:"Setup",nav3:"FAQ",pill:"Free for Windows",h1:'Your <span>AI team</span> on the desktop',
