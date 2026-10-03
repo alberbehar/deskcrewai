@@ -1,0 +1,7 @@
+{
+  "enabled": true,
+  "message": "",
+  "blocked": [],
+  "announcement": null,
+  "daily_send_limit": 500
+}
