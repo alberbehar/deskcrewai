@@ -157,10 +157,10 @@ footer .wrap{display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
 <section id="kayit"><div class="wrap"><div class="reg">
   <div>
     <h2 data-i="rh">Hesabını oluştur</h2>
-    <p class="sub" style="margin:0" data-i="rs">Gmail, Yahoo, Outlook, Hotmail, iCloud… Hangi e-postayı kullanıyorsan onunla kayıt ol. Şifre yok: mailine gelen kodu yazman yeterli.</p>
+    <p class="sub" style="margin:0" data-i="rs">Gmail, Yahoo, Outlook, Hotmail, iCloud… Hangi e-postayı kullanıyorsan onunla kayıt ol. DeskCrew AI için bir şifre belirle, mailine gelen tek kullanımlık kodla onayla.</p>
     <ul>
       <li data-i="rl1">Kayıt olunca hoş geldin maili ve indirme bağlantısı gelir.</li>
-      <li data-i="rl2">Programda aynı e-posta ile giriş yaparsın.</li>
+      <li data-i="rl2">Programda "Giriş yap"ı seçip aynı e-posta ve şifrenle girersin.</li>
       <li data-i="rl3">Ücretsiz. İstediğin zaman programdan hesabını silebilirsin.</li>
     </ul>
   </div>
@@ -168,14 +168,16 @@ footer .wrap{display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
     <div id="rfStep1" class="rf">
       <label><span data-i="rn">Adın</span><input id="rfName" autocomplete="name" maxlength="40" required></label>
       <label><span data-i="re">E-posta adresin</span><input id="rfMail" type="email" autocomplete="email" placeholder="ornek@yahoo.com" required></label>
+      <label><span data-i="rp">Şifre belirle (en az 8 karakter, e-posta şifren değil)</span><input id="rfPw" type="password" autocomplete="new-password" required></label>
+      <label><span data-i="rp2">Şifre (tekrar)</span><input id="rfPw2" type="password" autocomplete="new-password" required></label>
       <button type="submit" id="rfSend" data-i="rb1">Kod gönder</button>
     </div>
     <div id="rfStep2" class="rf" hidden>
-      <label><span data-i="rc">Maile gelen 6 haneli kod</span><input id="rfCode" class="code" inputmode="numeric" maxlength="7" autocomplete="one-time-code"></label>
+      <label><span data-i="rc">Maile gelen tek kullanımlık kod</span><input id="rfCode" class="code" inputmode="numeric" maxlength="7" autocomplete="one-time-code"></label>
       <button type="button" id="rfGo" data-i="rb2">Kaydı tamamla</button>
       <button type="button" class="lnk" id="rfBack" data-i="rb3">← E-postayı değiştir</button>
     </div>
-    <div id="rfDone" class="ok" hidden><b data-i="rdh">Hoş geldin! 🎉</b><span data-i="rdp">Hesabın oluşturuldu, sana bir hoş geldin maili gönderdik. Programı indir ve aynı e-posta ile giriş yap.</span><br><br><a href="https://github.com/alberbehar/deskcrewai/releases/latest/download/DeskCrewAI-Setup.exe" data-i="rdl">Windows için indir →</a></div>
+    <div id="rfDone" class="ok" hidden><b data-i="rdh">Hoş geldin! 🎉</b><span data-i="rdp">Hesabın oluşturuldu, sana bir hoş geldin maili gönderdik. Programı indir, "Giriş yap"ı seç ve aynı e-posta ve şifrenle gir.</span><br><br><a href="https://github.com/alberbehar/deskcrewai/releases/latest/download/DeskCrewAI-Setup.exe" data-i="rdl">Windows için indir →</a></div>
     <div class="msg2" id="rfMsg" role="status"></div>
   </form>
 </div></div></section>
@@ -217,10 +219,10 @@ footer .wrap{display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
 <footer><div class="wrap"><span>© 2026 DeskCrew AI · by alberbehar</span><span><a href="https://github.com/alberbehar/deskcrewai/releases" data-i="rel">Tüm sürümler</a></span></div></footer>
 
 <script>
-const EN={nav0:"Sign up",bsu:"No account yet? Sign up →",rh:"Create your account",rs:"Gmail, Yahoo, Outlook, Hotmail, iCloud… Sign up with whichever email you use. No password: just type the code we email you.",
-rl1:"After signing up you get a welcome email with the download link.",rl2:"In the app, sign in with the same email.",rl3:"Free. You can delete your account from the app anytime.",
-rn:"Your name",re:"Your email address",rb1:"Send code",rc:"6-digit code from the email",rb2:"Complete sign-up",rb3:"← Change email",
-rdh:"Welcome! 🎉",rdp:"Your account is ready and we sent you a welcome email. Download the app and sign in with the same email.",rdl:"Download for Windows →",
+const EN={nav0:"Sign up",bsu:"No account yet? Sign up →",rh:"Create your account",rs:"Gmail, Yahoo, Outlook, Hotmail, iCloud… Sign up with whichever email you use. Choose a DeskCrew AI password and confirm with the one-time code we email you.",
+rl1:"After signing up you get a welcome email with the download link.",rl2:"In the app, choose \"Sign in\" and use the same email and password.",rl3:"Free. You can delete your account from the app anytime.",
+rn:"Your name",re:"Your email address",rb1:"Send code",rp:"Choose a password (at least 8 characters, not your email password)",rp2:"Password (again)",rc:"One-time code from the email",rb2:"Complete sign-up",rb3:"← Change email",
+rdh:"Welcome! 🎉",rdp:"Your account is ready and we sent you a welcome email. Download the app, choose \"Sign in\" and use the same email and password.",rdl:"Download for Windows →",
 nav1:"Features",nav2:"Setup",nav3:"FAQ",pill:"Free for Windows",h1:'Your <span>AI team</span> on the desktop',
 lead:"A team that reads and summarizes your email, researches the web, organizes your files, runs tasks on schedule and uses your computer for you. Just say what you need.",
 dlwin:"Download for Windows",dlwin2:"Windows 10/11 · Free",soon:"Coming soon",note:"Runs with your own Anthropic API key. Your settings and passwords stay on your computer.",
@@ -248,10 +250,10 @@ let saved=null;try{saved=localStorage.getItem("dc_lang")}catch(e){}
 // ---- kayıt ----
 (function(){
   const $=id=>document.getElementById(id), L=()=>document.documentElement.lang==="en"?"en":"tr";
-  const MSG={tr:{name:"Adını yaz.",email:"Geçerli bir e-posta adresi yaz.",sending:"Gönderiliyor…",sent:a=>a+" adresine 6 haneli bir kod gönderdik. Gelmezse spam klasörüne bak.",checking:"Kontrol ediliyor…",code:"Maildeki 6 haneli kodu yaz.",
+  const MSG={tr:{pw:"Şifre en az 8 karakter olmalı.",pw2:"Şifreler aynı değil.",exists:"Bu e-posta ile zaten bir hesap var. Programda \"Giriş yap\"ı kullan.",name:"Adını yaz.",email:"Geçerli bir e-posta adresi yaz.",sending:"Gönderiliyor…",sent:a=>a+" adresine 6 haneli bir kod gönderdik. Gelmezse spam klasörüne bak.",checking:"Kontrol ediliyor…",code:"Maildeki 6 haneli kodu yaz.",
       limit:"Bugün bu adrese çok fazla kod gönderildi. Yarın tekrar dene.",wait:"Kod az önce gönderildi. Gelmezse 1 dakika sonra tekrar dene.",quota:"Şu an kod gönderilemiyor. Biraz sonra tekrar dene.",
       nocode:"Önce kod iste.",expired:"Kodun süresi doldu. Yeni kod iste.",tries:"Çok fazla yanlış deneme. Yeni kod iste.",wrong:"Kod yanlış.",off:"Kayıt şu an kapalı. Biraz sonra tekrar dene.",net:"Bağlantı kurulamadı. Biraz sonra tekrar dene."},
-    en:{name:"Enter your name.",email:"Enter a valid email address.",sending:"Sending…",sent:a=>"We sent a 6-digit code to "+a+". If it doesn't arrive, check your spam folder.",checking:"Checking…",code:"Enter the 6-digit code from the email.",
+    en:{pw:"The password must be at least 8 characters.",pw2:"The passwords don't match.",exists:"An account with this email already exists. Use \"Sign in\" in the app.",name:"Enter your name.",email:"Enter a valid email address.",sending:"Sending…",sent:a=>"We sent a 6-digit code to "+a+". If it doesn't arrive, check your spam folder.",checking:"Checking…",code:"Enter the 6-digit code from the email.",
       limit:"Too many codes were sent to this address today. Try again tomorrow.",wait:"A code was just sent. If it doesn't arrive, try again in a minute.",quota:"Can't send a code right now. Try again later.",
       nocode:"Ask for a code first.",expired:"The code expired. Ask for a new one.",tries:"Too many wrong attempts. Ask for a new code.",wrong:"Wrong code.",off:"Sign-up is closed right now. Try again later.",net:"Couldn't connect. Try again later."}};
   const t=(k,a)=>{const v=MSG[L()][k]||MSG[L()].net;return typeof v==="function"?v(a):v};
@@ -261,9 +263,13 @@ let saved=null;try{saved=localStorage.getItem("dc_lang")}catch(e){}
     if(!/^https:\/\/script\.google\.com\//.test(d.report_url||"")) throw new Error("off"); return url=d.report_url }
   async function call(body){ const u=await endpoint(); const r=await fetch(u,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(body)}); return r.json() }
   const mail=()=>$("rfMail").value.trim().toLowerCase();
+  async function pwKey(email,pw){ const enc=new TextEncoder(); const k=await crypto.subtle.importKey("raw",enc.encode(pw),"PBKDF2",false,["deriveBits"]);
+    const bits=await crypto.subtle.deriveBits({name:"PBKDF2",hash:"SHA-256",salt:enc.encode("deskcrew:"+email),iterations:100000},k,256);
+    return [...new Uint8Array(bits)].map(b=>b.toString(16).padStart(2,"0")).join("") }
   async function send(){ if(!$("rfName").value.trim()) return say("name",1); if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail())) return say("email",1);
+    if($("rfPw").value.length<8) return say("pw",1); if($("rfPw").value!==$("rfPw2").value) return say("pw2",1);
     $("rfSend").disabled=true; say("sending");
-    try{ const r=await call({type:"code",email:mail(),lang:L()}); if(!r.ok) return say(r.err,1);
+    try{ const r=await call({type:"code",purpose:"signup",email:mail(),k:await pwKey(mail(),$("rfPw").value),name:$("rfName").value.trim(),lang:L()}); if(!r.ok) return say(r.err,1);
       $("rfStep1").hidden=true; $("rfStep2").hidden=false; say("sent",0,mail()); $("rfCode").value=""; $("rfCode").focus() }
     catch(e){ say(e.message==="off"?"off":"net",1) } finally{ $("rfSend").disabled=false } }
   async function verify(){ const c=$("rfCode").value.replace(/\D/g,""); if(c.length!==6) return say("code",1);
