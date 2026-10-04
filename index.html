@@ -99,12 +99,25 @@ details p{color:var(--muted);margin:10px 0 0;font-size:14.5px}
 footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:13.5px}
 footer .wrap{display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
 @media (max-width:860px){.hero{grid-template-columns:1fr;padding-top:44px}.grid,.steps{grid-template-columns:1fr}.nav a.l{display:none}.mock .body{grid-template-columns:1fr}.mock .side{display:none}.dl,.dl.top{padding:26px}}
+.hero.solo{grid-template-columns:1fr;max-width:860px;text-align:center;padding-bottom:18px}.hero.solo .lead,.hero.solo .note{margin-left:auto;margin-right:auto}
+#ofis{padding:18px 0 48px}
+.demo{position:relative;aspect-ratio:1440/900;border-radius:18px;overflow:hidden;border:1px solid #1f2b42;box-shadow:0 30px 80px -24px rgba(15,30,70,.5);background:#0b1220}
+.demo iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.demo .live{position:absolute;right:14px;bottom:12px;background:rgba(11,18,32,.85);color:#e7edf7;border:1px solid #2a3a58;border-radius:99px;padding:5px 12px;font:600 12px Inter,sans-serif;display:flex;gap:7px;align-items:center}
+.demo .live i{width:8px;height:8px;border-radius:50%;background:#ef4444;box-shadow:0 0 8px #ef4444;animation:blink 1.4s infinite}
+@keyframes blink{50%{opacity:.3}}
+.chips3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+.chips3 div{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.chips3 b{display:block;margin-bottom:4px}
+.chips3 span{color:var(--muted);font-size:14.5px}
+@media (max-width:860px){.chips3{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <header><div class="wrap nav">
   <a class="logo" href="#"><svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a6cf0"/><stop offset="1" stop-color="#1ca078"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="15" fill="url(#g)"/><rect x="14" y="20" width="36" height="26" rx="8" fill="#fff"/><circle cx="25" cy="33" r="3.6" fill="#18202b"/><circle cx="39" cy="33" r="3.6" fill="#18202b"/><rect x="29" y="10" width="6" height="10" rx="3" fill="#fff"/></svg>DeskCrew <b>AI</b><small class="by">by alberbehar</small></a>
   <span class="sp"></span>
+  <a class="l" href="#ofis" data-i="navO">Ofis</a>
   <a class="l" href="#kayit" data-i="nav0">Kayıt ol</a>
   <a class="l" href="#ozellikler" data-i="nav1">Özellikler</a>
   <a class="l" href="#kurulum" data-i="nav2">Kurulum</a>
@@ -126,33 +139,23 @@ footer .wrap{display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
     </span>
   </div>
 </div></div>
-<div class="wrap hero">
+<div class="wrap hero solo">
   <div>
     <span class="pill"><i></i><span data-i="pill">Windows için ücretsiz</span></span>
     <h1 data-i="h1">Masaüstündeki <span>yapay zeka ekibin</span></h1>
     <p class="lead" data-i="lead">Maillerini okuyup özetleyen, internette araştıran, dosyalarını düzenleyen, işleri zamanında yapan ve bilgisayarını senin yerine kullanan bir ekip. Sen sadece söyle.</p>
     <p class="note" data-i="note">Kendi Anthropic API anahtarınla çalışır. Ayarların ve şifrelerin sadece senin bilgisayarında saklanır.</p>
   </div>
-  <div class="mock" aria-hidden="true">
-    <div class="bar"><i></i><i></i><i></i></div>
-    <div class="body">
-      <div class="side">
-        <div class="emp" style="--c:#18202b"><span class="av"></span><div>Müdür<small>CEO</small></div></div>
-        <div class="emp" style="--c:var(--mail)"><span class="av"></span><div>Posta<small>E-posta</small></div></div>
-        <div class="emp" style="--c:var(--web)"><span class="av"></span><div>Gezgin<small>Araştırmacı</small></div></div>
-        <div class="emp" style="--c:var(--file)"><span class="av"></span><div>Dosyacı<small>Arşiv</small></div></div>
-        <div class="emp" style="--c:var(--op)"><span class="av"></span><div>Operatör<small>Bilgisayar</small></div></div>
-      </div>
-      <div class="chat">
-        <div class="msg u" data-i="m1">Ekip, bugünkü raporlarınızı bana mail atın</div>
-        <div class="msg a" style="--c:var(--mail)" data-i="m2"><b>Posta:</b> 4 önemli mail var, özetini gönderdim.</div>
-        <div class="msg a" style="--c:var(--web)" data-i="m3"><b>Gezgin:</b> Dolar kuru ve haber özeti mailinde.</div>
-        <div class="msg u" data-i="m4">WhatsApp'tan Ali'ye "akşam 8'de görüşelim" yaz</div>
-        <div class="msg a" style="--c:var(--op)" data-i="m5"><b>Operatör:</b> Gönderdim ✓</div>
-      </div>
-    </div>
-  </div>
 </div>
+
+<section id="ofis"><div class="wrap">
+  <div class="demo"><iframe id="demoFrame" src="ofis-demo.html" title="DeskCrew AI ofis" loading="lazy"></iframe><span class="live"><i></i><span data-i="live">Canlı ofis</span></span></div>
+  <div class="chips3">
+    <div><b data-i="o1h">🏢 Ofisini büyüt</b><span data-i="o1p">Yeni oda ekle, odaları adlandır. Yeni çalışan alınca masası kendiliğinden kurulur.</span></div>
+    <div><b data-i="o2h">📅 Toplantı yap</b><span data-i="o2p">İstediğin çalışanları çağır; herkes kendi alanından brifing verir, Müdür özetler.</span></div>
+    <div><b data-i="o3h">👀 Kim ne yapıyor, gör</b><span data-i="o3p">Çalışanlar iş yaparken ekranları açılır, balonlarında ne yaptıkları yazar.</span></div>
+  </div>
+</div></section>
 
 <section id="kayit"><div class="wrap"><div class="reg">
   <div>
@@ -192,6 +195,9 @@ footer .wrap{display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
     <div class="card" style="--c:var(--op)"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div><h3 data-i="c4h">Bilgisayar kontrolü</h3><p data-i="c4p">Ekrana bakıp uygulama açar, tıklar, yazar; WhatsApp'tan mesaj gönderir. Önemli adımlarda önce sana sorar.</p></div>
     <div class="card" style="--c:var(--time)"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3 data-i="c5h">Zamanlanmış işler</h3><p data-i="c5p">"Her sabah 8'de maillerimi özetle" de, zamanı gelince kendiliğinden yapsın.</p></div>
     <div class="card" style="--c:#18202b"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 14.5c2.8.2 5 2.5 5 5.5"/></svg></div><h3 data-i="c6h">Müdür ve ekip toplantısı</h3><p data-i="c6p">Müdür işi bölüp ekibe dağıtır. "Ekip" sohbetinde herkes sırayla cevap verir.</p></div>
+    <div class="card" style="--c:#2f6fe0"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="8" height="18" rx="1"/><path d="M11 9h10v12H11M6 7h2M6 11h2M6 15h2"/></svg></div><h3 data-i="c7h">Hareketli sanal ofis</h3><p data-i="c7p">Ekibin bir ofiste oturur: çalışan yazıyor, ekranı açılıyor, molada kahve içiyor. Kim ne yapıyor tek bakışta görürsün.</p></div>
+    <div class="card" style="--c:#1ca078"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><h3 data-i="c8h">Toplantı ve brifing</h3><p data-i="c8p">"Toplantı yap" de, seçtiğin çalışanlar toplantı odasına geçsin; herkes günün raporunu versin, Müdür yapılacakları çıkarsın.</p></div>
+    <div class="card" style="--c:#d98a1c"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><h3 data-i="c9h">Büyüyen ofis</h3><p data-i="c9p">Yeni oda ekle (çalışma, toplantı, dinlenme), odaları adlandır, çalışanları taşı. Her yeni çalışana masa kendiliğinden açılır.</p></div>
   </div>
 </div></section>
 
@@ -241,9 +247,9 @@ qh:"FAQ",q1:"Is it paid?",a1:"The app is free. It uses your own Anthropic API ke
 q2:"Is my data safe?",a2:"Your API key and Gmail password are stored in Windows Credential Manager on your computer only. Email is sent only when you ask, and the assistant never deletes files.",
 q3:"Windows shows an \"unknown publisher\" warning",a3:"The app isn't code-signed yet, so SmartScreen shows this warning. Click \"More info\" and then \"Run anyway\".",
 q4:"When is the Mac version coming?",a4:"We're working on it. Windows 10 and 11 are supported for now.",q5:"How do I uninstall?",a5:"Remove \"DeskCrew AI\" from Settings → Apps. If you reinstall, your settings come back.",
-bh:"Hire your team today",bp:"Free download, one-minute setup.",rel:"All releases"};
+navO:"Office",live:"Live office",o1h:"🏢 Grow your office",o1p:"Add rooms and name them. Hire someone and their desk is set up automatically.",o2h:"📅 Hold a meeting",o2p:"Invite whoever you want; each gives a briefing on their area and the Manager sums up.",o3h:"👀 See who is doing what",o3p:"Screens light up while your team works and speech bubbles show what each one is doing.",c7h:"Animated virtual office",c7p:"Your team sits in an office: typing, screens lighting up, taking coffee breaks. See who is doing what at a glance.",c8h:"Meetings and briefings",c8p:"Say \"hold a meeting\" and the people you pick move to the meeting room; everyone reports on the day and the Manager lists next steps.",c9h:"An office that grows",c9p:"Add rooms (work, meeting, lounge), name them and move people around. Every new hire gets a desk automatically.",bh:"Hire your team today",bp:"Free download, one-minute setup.",rel:"All releases"};
 const TR={};document.querySelectorAll("[data-i]").forEach(e=>TR[e.dataset.i]=e.innerHTML);
-function setLang(l){document.documentElement.lang=l;const d=l==="en"?EN:TR;document.querySelectorAll("[data-i]").forEach(e=>{if(d[e.dataset.i]!=null)e.innerHTML=d[e.dataset.i]});
+function setLang(l){document.documentElement.lang=l;const df=document.getElementById("demoFrame");if(df){const u="ofis-demo.html"+(l==="en"?"?lang=en":"");if(df.getAttribute("src")!==u)df.setAttribute("src",u)}const d=l==="en"?EN:TR;document.querySelectorAll("[data-i]").forEach(e=>{if(d[e.dataset.i]!=null)e.innerHTML=d[e.dataset.i]});
   document.getElementById("lTr").classList.toggle("on",l==="tr");document.getElementById("lEn").classList.toggle("on",l==="en");try{localStorage.setItem("dc_lang",l)}catch(e){}}
 document.getElementById("lTr").onclick=()=>setLang("tr");document.getElementById("lEn").onclick=()=>setLang("en");
 let saved=null;try{saved=localStorage.getItem("dc_lang")}catch(e){}

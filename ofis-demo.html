@@ -1,0 +1,375 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0b1220;--panel:#0f182a;--line:#1e2a40;--tx:#e7edf7;--mut:#8a98b0;--blue:#4f8cff;--green:#22c55e;--amber:#f5b40b;--gray:#8b95a7}
+body{width:1440px;height:900px;background:var(--bg);color:var(--tx);font-family:"Segoe UI",Inter,Arial,sans-serif;overflow:hidden}
+.top{position:absolute;left:0;right:0;top:0;height:64px;display:flex;align-items:center;gap:18px;padding:0 22px;border-bottom:1px solid var(--line);background:linear-gradient(#0e1729,#0b1322)}
+.lg{display:flex;align-items:center;gap:12px;font-size:23px;font-weight:800;letter-spacing:.2px}
+.lg i{width:36px;height:36px;border-radius:50%;background:conic-gradient(from 200deg,#3a6cf0,#1ca078,#5ad1ff,#3a6cf0);display:block;position:relative;box-shadow:0 0 18px #3a6cf088}
+.lg i:after{content:"";position:absolute;inset:9px;border-radius:50%;background:#0e1729}
+.lg span{font-weight:400;color:#7fb0ff}
+.sub{color:#7f93b5;font-size:13px}
+.pill{margin-left:auto;border:1px solid #2a3a58;border-radius:11px;padding:8px 14px;font-size:13.5px;display:flex;align-items:center;gap:8px;background:#0f1a2e}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 1.6s infinite}
+.quote{color:#c8d3e6;font-size:14px;margin-left:40px;font-style:italic}
+.dt{color:#a9b6cc;font-size:13px;margin-left:40px}
+.av{width:38px;height:38px;border-radius:50%;background:#2f6fe0;display:grid;place-items:center;font-weight:700;border:2px solid #2a3a58}
+.nav{position:absolute;left:0;top:64px;bottom:0;width:92px;border-right:1px solid var(--line);background:#0c1424;padding-top:12px}
+.nav div{height:84px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;color:#8fa0bd;font-size:12.5px}
+.nav div.on{background:linear-gradient(90deg,#1a2b4d,#13203a);color:#fff;box-shadow:inset 3px 0 0 var(--blue)}
+.nav svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.7}
+.nav .by{position:absolute;bottom:18px;left:0;right:0;height:auto;font-size:11px;color:#55647e}
+#stage{position:absolute;left:92px;top:64px;width:988px;height:760px;overflow:hidden;background:radial-gradient(ellipse at 50% 45%,#16233c 0%,#0b1220 70%)}
+.bot{position:absolute;left:92px;width:988px;bottom:0;height:76px;border-top:1px solid var(--line);display:flex;align-items:center;background:#0c1424}
+.bot>div{flex:1;display:flex;align-items:center;gap:12px;padding:0 26px;border-right:1px solid var(--line);height:46px}
+.bot b{font-size:21px;display:block;line-height:1}.bot small{color:var(--mut);font-size:12.5px}
+.bot .q{flex:1.6;color:#c8d3e6;font-style:italic;font-size:14px;justify-content:center;border:0}
+.side{position:absolute;right:0;top:64px;bottom:0;width:360px;border-left:1px solid var(--line);background:var(--panel);display:flex;flex-direction:column}
+.tabs{display:flex;gap:8px;padding:14px 14px 10px}
+.tabs b{flex:1;text-align:center;padding:11px;border-radius:11px;font-weight:600;font-size:14px;color:#9fb0cc;border:1px solid transparent}
+.tabs b.on{background:#13264a;border-color:#2c4f8f;color:#fff;box-shadow:inset 0 -2px 0 var(--blue)}
+.ch{padding:6px 18px 10px;font-size:16px;color:#cfe0ff;border-bottom:1px solid var(--line)}
+.ch span{color:var(--blue)}
+#feed{flex:1;overflow:hidden;padding:8px 14px;display:flex;flex-direction:column;justify-content:flex-end;gap:4px}
+.it{display:flex;gap:11px;padding:9px 6px;border-radius:12px;animation:in .5s ease-out}
+.it .fa{width:40px;height:40px;border-radius:50%;flex:none;overflow:hidden;background:#1b2a44}
+.it .fa svg{width:40px;height:40px}
+.it h5{font-size:14px;font-weight:700}.it h5 small{color:var(--mut);font-weight:400;margin-left:8px;font-size:12px}
+.it p{font-size:13px;color:#b9c6da;line-height:1.4;margin-top:2px}
+.it.me{background:#13264a}
+.st{display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;padding:3px 10px;border-radius:9px;border:1px solid}
+.st i{width:8px;height:8px;border-radius:50%;display:block}
+.s1{color:#7ee2a2;border-color:#1f6b40;background:#0f2a1c}.s1 i{background:var(--green)}
+.s2{color:#ffd56b;border-color:#7a5a10;background:#2a2108}.s2 i{background:var(--amber)}
+.s3{color:#b8c1d1;border-color:#3a4558;background:#1a2232}.s3 i{background:var(--gray)}
+.inp{margin:12px 14px 16px;border:1px solid #2a3a58;border-radius:13px;padding:13px 14px;color:#7f8fab;font-size:14px;display:flex;justify-content:space-between;align-items:center;background:#0c1526}
+.inp b{width:34px;height:34px;border-radius:10px;background:var(--blue);display:grid;place-items:center;color:#fff}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+/* sahne animasyonları */
+@keyframes type{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+@keyframes breathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.3px)}}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes sway{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
+@keyframes scroll{from{transform:translateY(0)}to{transform:translateY(-36px)}}
+@keyframes glow{0%,100%{opacity:.55}50%{opacity:.8}}
+@keyframes flick{0%,100%{opacity:.9}47%{opacity:.9}50%{opacity:.6}53%{opacity:.9}}
+@keyframes steam{0%{opacity:0;transform:translateY(3px)}40%{opacity:.8}100%{opacity:0;transform:translateY(-12px)}}
+@keyframes bar{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
+@keyframes sdot{0%,100%{opacity:1}50%{opacity:.35}}
+.ha{animation:type .3s ease-in-out infinite}.hb{animation:type .3s ease-in-out infinite reverse}
+.br{animation:breathe 2.4s ease-in-out infinite}
+.fl{animation:floaty 2.2s ease-in-out infinite}
+.sw{transform-box:fill-box;transform-origin:bottom center;animation:sway 4s ease-in-out infinite}
+.sc{animation:scroll 2.4s linear infinite}
+.gl{animation:glow 3s ease-in-out infinite}
+.fk{animation:flick 5s infinite}
+.stm{animation:steam 2s ease-out infinite}
+.bar{transform-box:fill-box;transform-origin:bottom;animation:bar 2.2s ease-in-out infinite}
+.eye{transform-box:fill-box;transform-origin:center;animation:blink 3.6s infinite}
+.sd{animation:sdot 1.4s infinite}
+.bub{transition:opacity .4s}
+.otb{position:absolute;left:0;right:0;top:0;display:flex;gap:10px;align-items:center;padding:14px 18px;z-index:2}
+.otb b{font-weight:600;font-size:13.5px;border:1px solid #2c4f8f;background:#13264a;border-radius:9px;padding:8px 13px}
+.otb b.blue{background:#2f6fe0;border-color:#2f6fe0}.otb b.press{animation:press .9s ease-in-out 2;box-shadow:0 0 0 4px #5aa0ff66}
+@keyframes press{50%{transform:scale(.93)}}
+.opill{border:1px solid #2a3a58;border-radius:10px;padding:6px 12px;font-size:13px;display:flex;align-items:center;gap:7px;background:#0f1a2e}
+.opill i{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 7px #22c55e}
+#stage svg{position:absolute;inset:0}
+html{overflow:hidden;background:#0b1220}body{transform-origin:0 0}
+</style></head><body>
+<div class="top">
+ <div class="lg"><i></i>DeskCrew AI <span>Office</span></div>
+ <div class="sub"><span class="tt" data-en="› You say it, your team does it.">› Sen söyle, ekibin halletsin.</span></div>
+ <span id="act" hidden></span><span style="margin-left:auto"></span>
+ <div class="quote"><span class="tt" data-en="“Work that runs itself.”">“İşler kendiliğinden yürüyor.”</span></div>
+ <div class="dt"><span class="tt" data-en="4 Oct 2026">4 Eki 2026</span> &nbsp; <span id="clk">10:24</span></div>
+ <div class="av">A</div>
+</div>
+<div class="nav">
+ <div class="on"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="10" height="18"/><path d="M14 9h6v12h-6M7 7h4M7 11h4M7 15h4"/></svg><span class="tt" data-en="Office">Ofis</span></div>
+ <div><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg><span class="tt" data-en="Chat">Sohbet</span></div>
+ <div><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12l3 3 5-6"/></svg><span class="tt" data-en="Tasks">Görevler</span></div>
+ <div><svg viewBox="0 0 24 24"><path d="M5 20V10M12 20V4M19 20v-7"/></svg><span class="tt" data-en="Activity">Etkinlik</span></div>
+ <div><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg><span class="tt" data-en="Settings">Ayarlar</span></div>
+ <div class="by">by alberbehar</div>
+</div>
+<div id="stage"><div class="otb"><span class="opill"><i></i><span id="act2"></span></span><span style="flex:1"></span><b class="tt" data-en="+ Add room">+ Oda ekle</b><b class="tt" data-en="+ Hire">+ Çalışan al</b><b class="blue" id="meetBtn">📅 <span class="tt" data-en="Hold a meeting">Toplantı yap</span></b></div><svg id="sv" width="988" height="760" viewBox="0 0 988 760"></svg></div>
+<div class="bot">
+ <div><svg width="28" height="28" viewBox="0 0 24 24" fill="#4f8cff"><circle cx="9" cy="8" r="4"/><path d="M1 21c0-5 4-7 8-7s8 2 8 7z"/><circle cx="17" cy="9" r="3" opacity=".7"/></svg><span><b>6</b><small><span class="tt" data-en="AI team members">AI çalışan</span></small></span></div>
+ <div><span class="dot" style="background:var(--green)"></span><span><b id="c1">4</b><small><span class="tt" data-en="Working">Çalışıyor</span></small></span></div>
+ <div><span class="dot" style="background:var(--amber);box-shadow:0 0 8px var(--amber)"></span><span><b id="c2">1</b><small><span class="tt" data-en="Following">Takipte</span></small></span></div>
+ <div><span class="dot" style="background:var(--gray);box-shadow:none;animation:none"></span><span><b id="c3">1</b><small><span class="tt" data-en="Idle">Boşta</span></small></span></div>
+ <div class="q"><span class="tt" data-en="“You say it, the team does it.”">“Sen söyle, ekip halletsin.”</span></div>
+</div>
+<div class="side">
+ <div class="tabs"><b class="on">💬 <span class="tt" data-en="Chat">Sohbet</span></b><b>☰ <span class="tt" data-en="Tasks">Görevler</span></b></div>
+ <div class="ch"><span>#</span> <span class="tt" data-en="general">genel</span></div>
+ <div id="feed"></div>
+ <div class="inp"><span class="tt" data-en="Message the team…">Ekibe yaz…</span> <b>➤</b></div>
+</div>
+<script>
+const EN=new URLSearchParams(location.search).get("lang")==="en"; const t=(a,b)=>EN?b:a;
+if(EN) document.querySelectorAll(".tt").forEach(e=>e.textContent=e.dataset.en);
+const C=.866, s=28, OX=404, OY=112;
+const P=(x,y,z=0)=>[OX+(x-y)*C*s, OY+(x+y)*.5*s - z*s];
+const pts=a=>a.map(p=>p.map(v=>v.toFixed(1)).join(",")).join(" ");
+let H="";
+const poly=(a,f,ex="")=>`<polygon points="${pts(a)}" fill="${f}" ${ex}/>`;
+function box(x,y,z,w,d,h,top,left,right,ex=""){ // left = +y yüzü, right = +x yüzü
+ return poly([P(x,y+d,z),P(x+w,y+d,z),P(x+w,y+d,z+h),P(x,y+d,z+h)],left,ex)+
+        poly([P(x+w,y,z),P(x+w,y+d,z),P(x+w,y+d,z+h),P(x+w,y,z+h)],right,ex)+
+        poly([P(x,y,z+h),P(x+w,y,z+h),P(x+w,y+d,z+h),P(x,y+d,z+h)],top,ex) }
+const shade=(hex,k)=>{const n=parseInt(hex.slice(1),16);let r=n>>16,g=n>>8&255,b=n&255;r=Math.round(r*k);g=Math.round(g*k);b=Math.round(b*k);return `rgb(${Math.min(r,255)},${Math.min(g,255)},${Math.min(b,255)})`}
+const cbox=(x,y,z,w,d,h,c,ex)=>box(x,y,z,w,d,h,shade(c,1.15),shade(c,.8),shade(c,.62),ex);
+// y=sabit düzleminde (x yönünde akan) yazı/öğe dönüşümü
+const onY=(x,y,z)=>{const [a,b]=P(x,y,z);return `matrix(${C},0.5,0,1,${a},${b})`};
+const onX=(x,y,z)=>{const [a,b]=P(x,y,z);return `matrix(${C},-0.5,0,1,${a},${b})`};
+
+// ---------- defs ----------
+H+=`<defs>
+<radialGradient id="warm"><stop offset="0" stop-color="#ffcf7a" stop-opacity=".55"/><stop offset="1" stop-color="#ffcf7a" stop-opacity="0"/></radialGradient>
+<radialGradient id="cool"><stop offset="0" stop-color="#5aa0ff" stop-opacity=".5"/><stop offset="1" stop-color="#5aa0ff" stop-opacity="0"/></radialGradient>
+<filter id="blur"><feGaussianBlur stdDeviation="2.2"/></filter>
+<filter id="bl8"><feGaussianBlur stdDeviation="7"/></filter>
+<linearGradient id="night" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d1b3a"/><stop offset="1" stop-color="#1f3766"/></linearGradient>
+</defs>`;
+
+// ---------- zemin ----------
+H+=box(-.3,-.3,-.5,24.6,16.6,.5,"#2a2420","#141b2b","#101726");
+const floor=(x0,y0,x1,y1,c)=>poly([P(x0,y0),P(x1,y0),P(x1,y1),P(x0,y1)],c);
+H+=floor(0,0,24,16,"#5b4532");
+for(let i=0;i<=24;i+=1) H+=`<line x1="${P(i,0)[0]}" y1="${P(i,0)[1]}" x2="${P(i,16)[0]}" y2="${P(i,16)[1]}" stroke="#4b382a" stroke-width="1"/>`;
+[[4,4],[12,4],[20,4],[4,12],[12,12],[20,12]].forEach(([x,y])=>{const [a,b]=P(x,y);H+=`<ellipse cx="${a}" cy="${b}" rx="150" ry="80" fill="url(#warm)" opacity=".55"/>`});
+H+=floor(16,0,24,8,"#3b4252"); H+=floor(8.6,9.2,15.4,15.4,"#2e3445"); // toplantı halısı, lounge halısı
+H+=`<text transform="${onY(9.6,14.2,0)} rotate(0)" font-size="0" />`;
+// ---------- arka duvarlar ----------
+H+=box(0,-.3,0,24,.3,3.3,"#2b3550","#1c2438","#1c2438");     // y=0 duvarı (ön yüzü görünür)
+H+=box(-.3,0,0,.3,16,3.3,"#2b3550","#18203a","#222b44");      // x=0 duvarı
+// CEO odası ahşap kaplama
+H+=poly([P(8,0,0),P(16,0,0),P(16,0,3.3),P(8,0,3.3)],"#4b3426");
+for(let i=8.5;i<16;i+=.5) H+=`<line x1="${P(i,0,0)[0]}" y1="${P(i,0,0)[1]}" x2="${P(i,0,3.3)[0]}" y2="${P(i,0,3.3)[1]}" stroke="#3e2a1f" stroke-width="1"/>`;
+// pencereler (gece şehir)
+function winY(x0,x1){ let g=poly([P(x0,0,.9),P(x1,0,.9),P(x1,0,2.9),P(x0,0,2.9)],"url(#night)");
+ for(let x=x0+.3;x<x1-.3;x+=.55){const hgt=.6+((x*7.3)%1)*1.1; g+=poly([P(x,0,.9),P(x+.4,0,.9),P(x+.4,0,.9+hgt),P(x,0,.9+hgt)],"#24406f");
+  for(let z=1.05;z<.85+hgt;z+=.22) if(((x*13+z*7)%1)>.45) g+=poly([P(x+.1,0,z),P(x+.18,0,z),P(x+.18,0,z+.09),P(x+.1,0,z+.09)],"#ffd98a",`class="fk" style="animation-delay:${-(x*z)%5}s"`)}
+ for(let x=x0;x<=x1+.01;x+=(x1-x0)/3) g+=`<line x1="${P(x,0,.9)[0]}" y1="${P(x,0,.9)[1]}" x2="${P(x,0,2.9)[0]}" y2="${P(x,0,2.9)[1]}" stroke="#56627c" stroke-width="2.5"/>`;
+ return g+`<polyline points="${pts([P(x0,0,.9),P(x1,0,.9),P(x1,0,2.9),P(x0,0,2.9),P(x0,0,.9)])}" fill="none" stroke="#56627c" stroke-width="3"/>` }
+function winX(y0,y1){ let g=poly([P(0,y0,.9),P(0,y1,.9),P(0,y1,2.9),P(0,y0,2.9)],"url(#night)");
+ for(let y=y0+.3;y<y1-.3;y+=.6){const hgt=.5+((y*5.7)%1)*1.2; g+=poly([P(0,y,.9),P(0,y+.45,.9),P(0,y+.45,.9+hgt),P(0,y,.9+hgt)],"#203a66");
+  for(let z=1.05;z<.85+hgt;z+=.22) if(((y*11+z*5)%1)>.5) g+=poly([P(0,y+.12,z),P(0,y+.2,z),P(0,y+.2,z+.09),P(0,y+.12,z+.09)],"#ffd98a")}
+ return g+`<polyline points="${pts([P(0,y0,.9),P(0,y1,.9),P(0,y1,2.9),P(0,y0,2.9),P(0,y0,.9)])}" fill="none" stroke="#56627c" stroke-width="3"/>` }
+H+=winY(1,7.4)+winY(16.6,17.6)+winX(1,7)+winX(9,15);
+// tabelalar
+const sign=(x,y,z,t,onx)=>`<g transform="${onx?onX(x,y,z):onY(x,y,z)}"><rect x="0" y="-15" width="${t.length*8.2+22}" height="22" rx="4" fill="#0e1729" opacity=".85"/><text x="11" y="1" font-size="13" font-weight="600" fill="#e8f0ff">${t}</text></g>`;
+H+=sign(1.2,.01,3.25,t("Mail & Araştırma","Mail & Research"))+sign(9,.01,3.25,t("CEO Ofisi","CEO Office"))+sign(17,.01,3.25,t("Toplantı Odası","Meeting Room"));
+// CEO odası duvar yazısı
+H+=`<g transform="${onY(12.3,.02,2.7)}"><rect width="88" height="40" rx="3" fill="#1e2433"/><text x="8" y="17" font-size="10.5" fill="#e6dccf">${t("Daha büyük işler,","Bigger things,")}</text><text x="8" y="31" font-size="10.5" fill="#e6dccf">${t("birlikte.","together.")}</text></g>`;
+// toplantı ekranı (grafik)
+H+=`<g transform="${onY(18.6,.02,2.75)}"><rect width="120" height="64" rx="4" fill="#0b1630" stroke="#3a6cf0" stroke-width="2"/>
+<text x="8" y="14" font-size="9" fill="#9cc0ff">${t("Haftalık işler","Weekly work")}</text>
+${[0,1,2,3,4,5].map(i=>`<rect class="bar" style="animation-delay:${-i*.37}s" x="${12+i*17}" y="22" width="10" height="34" fill="${i%2?"#1ca078":"#4f8cff"}"/>`).join("")}</g>`;
+H+=poly([P(18.4,.02,2.85),P(22.8,.02,2.85),P(22.8,1.6,0),P(18.4,1.6,0)],"url(#cool)",'opacity=".18" class="gl"');
+
+// ---------- yardımcı objeler ----------
+const plant=(x,y,k=1)=>{const [a,b]=P(x,y);return `<g transform="translate(${a},${b}) scale(${k})"><path d="M-9 0 L9 0 L7 -16 L-7 -16Z" fill="#c9cdd6"/><path d="M-9 0 L9 0 L7 -16 L-7 -16Z" fill="#000" opacity=".15"/><g class="sw" style="animation-delay:${-(x+y)%4}s">${[[-14,-40,-30],[12,-42,28],[0,-50,0],[-8,-34,-55],[9,-34,55],[2,-44,-12]].map(([lx,ly,r],i)=>`<ellipse cx="${lx*.6}" cy="${ly*.6-14}" rx="5.5" ry="15" fill="${i%2?"#2f8f4e":"#3fae60"}" transform="rotate(${r} ${lx*.6} ${ly*.6-14})"/>`).join("")}</g></g>`};
+const lamp=(x,y)=>{const [a,b]=P(x,y);return `<ellipse cx="${a}" cy="${b-4}" rx="70" ry="38" fill="url(#warm)" class="gl"/><g transform="translate(${a},${b})"><rect x="-1.5" y="-56" width="3" height="56" fill="#2a2a2a"/><ellipse cx="0" cy="0" rx="8" ry="3" fill="#222"/><path d="M-11 -54 L11 -54 L7 -68 L-7 -68Z" fill="#f3e3c3"/><ellipse cx="0" cy="-58" rx="16" ry="12" fill="#ffd27a" opacity=".35" filter="url(#blur)" class="fk"/></g>`};
+const shelf=(x,y,w)=>{let g=cbox(x,y,0,w,.45,2.1,"#3a2a20"); for(let r=0;r<3;r++) for(let i=0;i<w*4;i++){const bx=x+.12+i*.24; g+=poly([P(bx,y+.46,.25+r*.65),P(bx+.17,y+.46,.25+r*.65),P(bx+.17,y+.46,.68+r*.65),P(bx,y+.46,.68+r*.65)],["#b8473a","#3a6cf0","#d9a441","#2f8f6e","#7c5cd6","#cfc6b3"][(i+r*2)%6])} return g};
+const chairBack=(x,y,c="#22283a")=>{const [a,b]=P(x,y);return `<g transform="translate(${a},${b})"><rect x="-17" y="-58" width="34" height="40" rx="10" fill="${c}"/><rect x="-17" y="-58" width="34" height="40" rx="10" fill="#fff" opacity=".04"/><rect x="-2" y="-18" width="4" height="14" fill="#151a26"/><ellipse cx="0" cy="-3" rx="15" ry="5" fill="#151a26"/></g>`};
+
+// ---------- karakter ----------
+function face(p,eyes=true){ const sk=p.skin,hr=p.hair; let g="";
+ if(p.hs=="long") g+=`<path d="M-17 14 Q-21 -24 0 -23 Q21 -24 17 14Z" fill="${hr}"/>`;
+ g+=`<circle cx="0" cy="-4" r="15" fill="${sk}"/>`;
+ if(eyes){ g+=`<g class="eye" style="animation-delay:${-p.i*.7}s"><ellipse cx="-5.5" cy="-4" rx="2.2" ry="2.8" fill="#1a1f2b"/><ellipse cx="5.5" cy="-4" rx="2.2" ry="2.8" fill="#1a1f2b"/></g><circle cx="-4.8" cy="-5" r=".8" fill="#fff"/><circle cx="6.2" cy="-5" r=".8" fill="#fff"/>
+  <circle cx="-9" cy="2" r="2.6" fill="#f08a8a" opacity=".4"/><circle cx="9" cy="2" r="2.6" fill="#f08a8a" opacity=".4"/><path d="M-3.5 3.5 Q0 6.5 3.5 3.5" stroke="#7a3b2a" stroke-width="1.5" fill="none" stroke-linecap="round"/>`;
+  if(p.glasses) g+=`<circle cx="-5.5" cy="-4" r="4.6" fill="none" stroke="#1a1f2b" stroke-width="1.4"/><circle cx="5.5" cy="-4" r="4.6" fill="none" stroke="#1a1f2b" stroke-width="1.4"/><line x1="-1" y1="-4" x2="1" y2="-4" stroke="#1a1f2b" stroke-width="1.4"/>`;
+  if(p.beard) g+=`<path d="M-13 -1 Q-12 13 0 13 Q12 13 13 -1 Q8 7 0 7 Q-8 7 -13 -1Z" fill="${hr}"/><path d="M-3.5 4.5 Q0 6.5 3.5 4.5" stroke="#f6d8c4" stroke-width="1.3" fill="none"/>`; }
+ if(p.hs=="short") g+=`<path d="M-16 -4 Q-17 -24 0 -23 Q17 -24 16 -4 Q13 -15 3 -16 Q-6 -11 -16 -4Z" fill="${hr}"/>`;
+ if(p.hs=="side") g+=`<path d="M-16 -2 Q-18 -25 2 -23 Q18 -22 16 -6 Q10 -17 -2 -15 Q-10 -12 -16 -2Z" fill="${hr}"/>`;
+ if(p.hs=="long") g+=`<path d="M-16 -2 Q-16 -24 0 -23 Q16 -24 16 -2 Q8 -17 -2 -16 Q-11 -14 -16 -2Z" fill="${hr}"/>`;
+ if(p.hs=="curly") for(let a=-170;a<=-10;a+=18){const r=a*Math.PI/180; g+=`<circle cx="${15*Math.cos(r)}" cy="${-6+15*Math.sin(r)}" r="6" fill="${hr}"/>`}
+ if(p.hs=="bun") g+=`<path d="M-16 -2 Q-16 -24 0 -23 Q16 -24 16 -2 Q9 -15 0 -15 Q-9 -15 -16 -2Z" fill="${hr}"/><circle cx="0" cy="-25" r="7" fill="${hr}"/>`;
+ if(p.headset) g+=`<path d="M-16 -4 Q-16 -24 0 -24 Q16 -24 16 -4" stroke="#1a1f2b" stroke-width="3" fill="none"/><rect x="-19" y="-8" width="6" height="10" rx="2" fill="#1a1f2b"/><rect x="13" y="-8" width="6" height="10" rx="2" fill="#1a1f2b"/>`;
+ return g }
+function torso(p){ let g=`<path d="M-17 22 Q-17 -6 0 -7 Q17 -6 17 22Z" fill="${p.c}"/><path d="M-17 22 Q-17 -6 0 -7 L0 22Z" fill="#fff" opacity=".07"/>`;
+ g+=`<path d="M-5 -7 L0 1 L5 -7Z" fill="${p.collar||"#f2f4f8"}"/>`; if(p.tie) g+=`<path d="M-2 -5 L2 -5 L3 12 L0 15 L-3 12Z" fill="#c23b4e"/>`;
+ return g }
+function seated(p){ // p.x,p.y = masa sol-arka köşesi
+ const dx=p.x,dy=p.y,W=p.w||2.4,D=1.1; const [sx,sy]=P(dx+W/2,dy-.55);
+ let g=`<g id="seat_${p.id}">`+chairBack(dx+W/2,dy-.7,p.chair||"#23293b");
+ g+=`<g transform="translate(${sx},${sy-40}) scale(1.12)"><g class="br" style="animation-delay:${-p.i*.4}s">${torso(p)}<g transform="translate(0,-24)">${face(p)}</g></g></g></g>`;
+ // masa
+ g+=cbox(dx,dy,0,W,D,.78,p.desk||"#6b4a33");
+ // monitör ışığı
+ const [mx,my]=P(dx+W*.32,dy+.28,.78);
+ g+=`<ellipse cx="${mx+8}" cy="${my-22}" rx="44" ry="30" fill="url(#cool)" opacity="0" id="glow_${p.id}" class="gl"/>`;
+ // monitör (ekran kullanıcıya bakar, hafif çapraz)
+ g+=`<g transform="translate(${mx},${my})"><rect x="-2" y="-8" width="4" height="8" fill="#1a1f2b"/><ellipse cx="0" cy="0" rx="8" ry="3" fill="#1a1f2b"/>
+ <g transform="matrix(${C},0.5,0,1,-22,-40)"><rect x="-1.5" y="-1.5" width="43" height="31" rx="2" fill="#141925"/><svg x="1" y="1" width="38" height="26"><rect width="38" height="26" fill="#0d1f45" id="scr_${p.id}"/>
+  <g class="sc" id="lines_${p.id}" style="animation-delay:${-p.i*.5}s">${Array.from({length:12},(_,k)=>`<rect x="3" y="${3+k*6}" width="${8+((k*7+p.i*3)%5)*5}" height="2.4" rx="1" fill="${k%3==0?p.c:k%3==1?"#7fb0ff":"#9de3c0"}"/>`).join("")}</g></svg></g></g>`;
+ // eller + klavye
+ const [kx,ky]=P(dx+W*.55,dy+.45,.78);
+ g+=`<g transform="translate(${kx},${ky})"><path d="M-16 -2 L10 -2 L16 4 L-10 4Z" fill="#cfd6e2"/><g id="hands_${p.id}"><circle class="ha" cx="-8" cy="-3" r="4.2" fill="${p.skin}"/><circle class="hb" cx="6" cy="-3" r="4.2" fill="${p.skin}"/></g></g>`;
+ // kupa
+ if(p.mug){const [ux,uy]=P(dx+W-.35,dy+.5,.78); g+=`<g transform="translate(${ux},${uy})"><rect x="-5" y="-11" width="10" height="11" rx="2" fill="#f2f2f2"/><path d="M5 -8 q5 0 5 3 q0 3 -5 3" stroke="#f2f2f2" stroke-width="1.6" fill="none"/><path class="stm" d="M-2 -13 q-3 -5 0 -10" stroke="#cfd6e2" stroke-width="1.5" fill="none"/><path class="stm" style="animation-delay:-1s" d="M2 -13 q-3 -5 0 -10" stroke="#cfd6e2" stroke-width="1.5" fill="none"/></g>`}
+ // görev simgesi baloncuğu
+ g+=`<g transform="translate(${sx+30},${sy-112})"><g class="fl" style="animation-delay:${-p.i*.3}s" id="ic_${p.id}"><rect x="-15" y="-15" width="30" height="30" rx="8" fill="#2f6fe0" stroke="#7fb0ff" stroke-width="1.5"/><text x="0" y="5.5" font-size="15" text-anchor="middle">${p.icon}</text></g></g>`;
+ // konuşma balonu
+ g+=`<g transform="translate(${sx},${sy-150})" class="bub" id="bub_${p.id}" opacity="0"><rect x="-80" y="-15" width="160" height="28" rx="14" fill="#f5f8ff"/><path d="M-6 13 L0 21 L6 13Z" fill="#f5f8ff"/><text x="0" y="4" font-size="12" font-weight="600" text-anchor="middle" fill="#1a2233" id="bubt_${p.id}"></text></g>`;
+ // isim plakası
+ const [nx,ny]=P(dx+W/2,dy+D+.55,0);
+ g+=`<g transform="translate(${nx-48},${ny-6})"><rect width="96" height="34" rx="8" fill="#0d1526" opacity=".92" stroke="#2a3a58"/><text x="12" y="14" font-size="12.5" font-weight="700" fill="#fff">${p.n}</text><circle cx="16" cy="24" r="3.6" id="sdot_${p.id}" class="sd" fill="#22c55e"/><text x="24" y="28" font-size="11" id="stx_${p.id}" fill="#7ee2a2">Çalışıyor</text></g>`;
+ return g }
+
+// ---------- ekip ----------
+const T=[
+ {id:"posta",n:t("Posta","Mail"),c:"#d9485f",skin:"#f2c9a8",hair:"#6b3a1e",hs:"long",icon:"✉️",x:1.0,y:3.0,i:1},
+ {id:"gezgin",n:t("Gezgin","Scout"),c:"#2f6fe0",skin:"#c98e65",hair:"#1d1d1d",hs:"curly",glasses:1,icon:"🔎",x:4.6,y:3.0,i:2},
+ {id:"mudur",n:t("Müdür","Manager"),c:"#283043",skin:"#efc3a0",hair:"#8a8f99",hs:"side",beard:1,tie:1,icon:"⭐",x:10.6,y:3.2,w:3.0,desk:"#5a3a26",chair:"#1b1f2a",i:0},
+ {id:"dosyaci",n:t("Dosyacı","Files"),c:"#1f9b74",skin:"#f3d2b8",hair:"#d8b25a",hs:"bun",icon:"📁",x:1.0,y:11.2,i:3},
+ {id:"saat",n:t("Saat","Time"),c:"#d98a1c",skin:"#a86f4c",hair:"#2b1b12",hs:"short",glasses:1,icon:"⏰",x:4.6,y:11.2,mug:1,i:4},
+ {id:"operator",n:t("Operatör","Operator"),c:"#8b5cf6",skin:"#f0c09b",hair:"#4a2f20",hs:"short",headset:1,icon:"🖱️",x:17.2,y:11.2,i:5},
+];
+const E=Object.fromEntries(T.map(p=>[p.id,p]));
+
+// ---------- 1. sıra odalar ----------
+H+=shelf(.4,0,2.2)+plant(6.9,.9)+lamp(.7,5.4)+plant(.8,7.2,.9);
+H+=seated(E.posta)+seated(E.gezgin);
+// cam bölme x=8 (1. sıra)
+const glassX=(x,y0,y1,h=2.3)=>poly([P(x,y0,0),P(x,y1,0),P(x,y1,h),P(x,y0,h)],"rgba(140,180,255,.07)",'stroke="rgba(140,180,255,.25)"')+`<line x1="${P(x,y0,h)[0]}" y1="${P(x,y0,h)[1]}" x2="${P(x,y1,h)[0]}" y2="${P(x,y1,h)[1]}" stroke="#5aa0ff" stroke-width="2.5" filter="url(#blur)"/><line x1="${P(x,y0,h)[0]}" y1="${P(x,y0,h)[1]}" x2="${P(x,y1,h)[0]}" y2="${P(x,y1,h)[1]}" stroke="#a8ccff" stroke-width="1"/>`;
+const glassY=(y,x0,x1,h=2.3)=>poly([P(x0,y,0),P(x1,y,0),P(x1,y,h),P(x0,y,h)],"rgba(140,180,255,.07)",'stroke="rgba(140,180,255,.25)"')+`<line x1="${P(x0,y,h)[0]}" y1="${P(x0,y,h)[1]}" x2="${P(x1,y,h)[0]}" y2="${P(x1,y,h)[1]}" stroke="#5aa0ff" stroke-width="2.5" filter="url(#blur)"/><line x1="${P(x0,y,h)[0]}" y1="${P(x0,y,h)[1]}" x2="${P(x1,y,h)[0]}" y2="${P(x1,y,h)[1]}" stroke="#a8ccff" stroke-width="1"/>`;
+H+=glassX(8,0,6.2);
+// CEO
+H+=shelf(8.5,0,2.4)+plant(15.2,.9)+lamp(9.0,1.6)+plant(15.3,6.9,1.1);
+H+=seated(E.mudur);
+H+=`<g>${cbox(14.2,4.0,0,.8,.8,.5,"#2b2f3a")}</g>`;
+H+=glassX(16,0,6.2);
+// toplantı odası
+H+=lamp(23.2,1.2)+plant(23.3,7.0);
+const chairs=[[17.8,2.4],[19.3,2.4],[20.8,2.4],[22.3,2.4]];
+chairs.forEach(([x,y])=>H+=cbox(x,y,0,.7,.6,.45,"#1c2130")+cbox(x,y-.1,.45,.7,.15,.8,"#1c2130"));
+chairs.forEach(([x,y],i)=>{const [a,b]=P(x+.35,y+.1); H+=`<g id="ms${i}" transform="translate(${a},${b-36})"></g>`});
+H+=cbox(17.4,3.2,0,5.8,1.7,.75,"#6b4a33");
+H+=plant(20.1,3.8,.45);
+[[17.8,5.1],[19.3,5.1],[20.8,5.1],[22.3,5.1]].forEach(([x,y])=>H+=cbox(x,y,0,.7,.6,.45,"#1c2130")+cbox(x,y+.5,.45,.7,.15,.8,"#1c2130"));
+// y=8 cam bölme (arka sıra ile ön sıra arası)
+H+=glassY(8,0,6.4)+glassY(8,9.5,14.5)+glassY(8,17,24);
+H+=sign(.01,15.2,3.25,t("Dosya & Planlama","Files & Planning"),1)+sign(16.01,15.0,2.0,t("Operasyon","Operations"),1);
+
+// ---------- 2. sıra ----------
+H+=box(-.02,8,0,.02,8,0,"#000","#000","#000");
+H+=plant(.8,8.9)+lamp(7.2,9.0)+plant(7.2,15.3,1.1);
+H+=seated(E.dosyaci);
+// Saat masası (yürürken boş sandalye)
+H+=seated(E.saat);
+H+=glassX(8,9.6,16,1.0);
+// lounge
+H+=poly([P(9.2,10.2),P(14.8,10.2),P(14.8,15.2),P(9.2,15.2)],"#262c3b");
+H+=`<g transform="${(()=>{const [a,b]=P(10.2,14.6);return `matrix(${C},-0.5,${C},0.5,${a},${b})`})()}"><text font-size="15" fill="#8796b3" font-style="italic">${t("Sen söyle,","You say it,")}</text><text y="18" font-size="15" fill="#8796b3" font-style="italic">${t("ekip halletsin.","the team does it.")}</text></g>`;
+// logo paneli
+H+=cbox(8.3,10.0,0,.3,3.4,2.5,"#141c2e");
+H+=`<g transform="${onX(8.61,13.2,2.35)}"><circle cx="40" cy="22" r="14" fill="none" stroke="#4f8cff" stroke-width="5"/><circle cx="40" cy="22" r="14" fill="none" stroke="#1ca078" stroke-width="5" stroke-dasharray="30 60"/><text x="12" y="56" font-size="15" font-weight="800" fill="#fff">DeskCrew</text><text x="22" y="72" font-size="11" fill="#7fb0ff">AI Office</text></g>`;
+H+=poly([P(8.6,10,2.5),P(8.6,13.4,2.5),P(10.4,13.4,0),P(10.4,10,0)],"url(#cool)",'opacity=".25" class="gl"');
+// kahve makinesi
+H+=cbox(14.4,9.0,0,1.2,.6,.95,"#3a3f4c")+cbox(14.6,9.1,.95,.6,.4,.5,"#20242e");
+H+=`<g transform="translate(${P(15,9.35,1.3)[0]},${P(15,9.35,1.3)[1]})"><circle r="3" fill="#ff5a5a" class="sd"/></g>`;
+// koltuk + sehpa
+H+=cbox(10.0,12.4,0,3.6,1.1,.45,"#4a5163")+cbox(10.0,12.4,.45,3.6,.3,.5,"#4a5163")+cbox(10.0,12.4,.45,.3,1.1,.3,"#4a5163")+cbox(13.3,12.4,.45,.3,1.1,.3,"#4a5163");
+H+=cbox(11.0,13.9,0,1.6,.8,.35,"#1e2230")+plant(11.8,14.3,.4);
+H+=lamp(9.6,11.4)+plant(15.2,15.3);
+H+=glassX(16,9.6,16,1.0);
+// operasyon
+H+=seated(E.operator);
+// boş masa: yeni çalışan
+H+=cbox(20.8,11.2,0,2.4,1.1,.78,"#4d3a2c");
+H+=`<g transform="translate(${P(22,12.9)[0]-56},${P(22,12.9)[1]-6})"><rect width="112" height="30" rx="8" fill="none" stroke="#4f8cff" stroke-dasharray="4 3"/><text x="56" y="19" text-anchor="middle" font-size="12" font-weight="600" fill="#7fb0ff">${t("+ Yeni çalışan al","+ Hire someone")}</text></g>`;
+H+=plant(23.3,8.9);
+// ön korkuluk camları
+H+=glassY(16,0,24,.7)+glassX(24,0,16,.7);
+// yürüyen Saat (JS konumlandırır)
+H+=`<g id="walker" opacity="0"><g id="wk"><g id="legL"><rect x="-6" y="16" width="5" height="17" rx="2" fill="#2a3040"/></g><g id="legR"><rect x="1" y="16" width="5" height="17" rx="2" fill="#2a3040"/></g>
+<g transform="translate(0,0)">${torso(E.saat)}</g><g transform="translate(0,-22)">${face(E.saat)}</g><g id="wmug"><rect x="13" y="0" width="8" height="9" rx="2" fill="#f2f2f2"/></g></g></g>`;
+// ön plan bitkileri (bulanık)
+H+=`<g filter="url(#bl8)" opacity=".85"><ellipse cx="40" cy="740" rx="30" ry="90" fill="#163a25" transform="rotate(30 40 740)"/><ellipse cx="90" cy="760" rx="25" ry="80" fill="#1d4a2f" transform="rotate(-20 90 760)"/><ellipse cx="960" cy="720" rx="30" ry="100" fill="#163a25" transform="rotate(-35 960 720)"/><ellipse cx="910" cy="770" rx="25" ry="80" fill="#1d4a2f" transform="rotate(15 910 770)"/></g>`;
+document.getElementById("sv").innerHTML=H+`<g id="top"></g>`;
+document.querySelectorAll(".bub").forEach(b=>document.getElementById("top").appendChild(b));
+
+// ---------- canlı durum ----------
+const ST={1:[t("Çalışıyor","Working"),"#22c55e","#7ee2a2"],2:[t("Takipte","Following"),"#f5b40b","#ffd56b"],3:[t("Boşta","Idle"),"#8b95a7","#b8c1d1"]};
+const state={};
+function setSt(id,k){ state[id]=k; const [tx0,d,c]=ST[k];
+ const sd=document.getElementById("sdot_"+id), tx=document.getElementById("stx_"+id); sd.setAttribute("fill",d); tx.textContent=tx0; tx.setAttribute("fill",c);
+ const on=k==1; document.getElementById("lines_"+id).style.animationPlayState=on?"running":"paused";
+ document.getElementById("lines_"+id).style.opacity=on?1:.35; document.getElementById("scr_"+id).setAttribute("fill",on?"#0d1f45":"#141a28");
+ document.getElementById("glow_"+id).setAttribute("opacity",on?".9":"0");
+ document.getElementById("hands_"+id).style.display=on?"":"none";
+ document.getElementById("ic_"+id).style.opacity=k==3?0:1;
+ const n=[1,2,3].map(v=>Object.values(state).filter(x=>x==v).length);
+ c1.textContent=n[0]; c2.textContent=n[1]; c3.textContent=n[2]; act.textContent=act2.textContent=`${n[0]+n[1]}/6 ${t("aktif","active")}` }
+const MEET=[]; const home={};
+function bubble(id,t,ms=3200){ const b=document.getElementById("bub_"+id); document.getElementById("bubt_"+id).textContent=t;
+ if(!home[id]) home[id]=b.getAttribute("transform"); const k=MEET.indexOf(id);
+ if(k>=0){ const m=/translate\(([-\d.]+),([-\d.]+)\)/.exec(document.getElementById("ms"+k).getAttribute("transform")); b.setAttribute("transform",`translate(${m[1]},${+m[2]-70})`) } else b.setAttribute("transform",home[id]);
+ b.querySelector("rect").setAttribute("width",t.length*6.6+28); b.querySelector("rect").setAttribute("x",-(t.length*6.6+28)/2);
+ b.setAttribute("opacity",1); clearTimeout(b._t); b._t=setTimeout(()=>b.setAttribute("opacity",0),ms) }
+// sohbet akışı
+const feed=document.getElementById("feed");
+function mini(p){ return `<svg viewBox="-20 -32 40 40"><rect x="-20" y="-32" width="40" height="40" fill="${p.c}" opacity=".35"/><g transform="translate(0,-6) scale(.95)">${face(p)}</g><path d="M-14 8 Q-14 -4 0 -5 Q14 -4 14 8Z" fill="${p.c}"/></svg>` }
+let clock=24;
+function post(who,text,st,me){ const p=E[who]; clock++; document.getElementById("clk").textContent=`10:${clock}`;
+ const el=document.createElement("div"); el.className="it"+(me?" me":"");
+ el.innerHTML=me?`<div class="fa" style="display:grid;place-items:center;background:#2f6fe0;font-weight:700">A</div><div><h5>Alber<small>10:${clock}</small></h5><p>${text}</p></div>`:
+ `<div class="fa">${mini(p)}</div><div><h5>${p.n}<small>10:${clock}</small></h5><p>${text}</p>${st?`<span class="st s${st}"><i></i>${ST[st][0]}</span>`:""}</div>`;
+ feed.appendChild(el); while(feed.children.length>7) feed.firstChild.remove() }
+function reset(){ unmeet(); feed.innerHTML=""; clock=17;
+ setSt("mudur",1); setSt("posta",1); setSt("gezgin",3); setSt("dosyaci",2); setSt("saat",3); setSt("operator",1);
+ post("operator",t("Satış tablosunu Excel'de açıyorum.","Opening the sales sheet in Excel."),1); post("posta",t("Yeni mailleri okuyorum (14).","Reading new emails (14)."),1); post("dosyaci",t("İndirilenler klasörünü takip ediyorum.","Watching the Downloads folder."),2); post("saat",t("Kısa bir kahve molası ☕","Quick coffee break ☕"),3) }
+const TL=[
+ [1500,()=>post(null,t("Dolar kurunu bul, kısa bir rapor yazıp Masaüstü'ne kaydet.","Find the dollar rate, write a short report and save it to the Desktop."),0,1)],
+ [3500,()=>{post("mudur",t("Tamam! Gezgin kuru bulsun, Dosyacı raporu yazsın.","On it! Scout finds the rate, Files writes the report."),1); bubble("mudur",t("Gezgin, kur araştırması sende!","Scout, the rate is yours!"))}],
+ [5000,()=>{setSt("gezgin",1); bubble("gezgin",t("Kur aranıyor…","Looking up the rate…"),4000); post("gezgin",t("TCMB ve piyasa kaynaklarına bakıyorum.","Checking the central bank and market sources."),1)}],
+ [8000,()=>bubble("posta",t("3 önemli mail var!","3 important emails!"))],
+ [10500,()=>{post("gezgin",t("💵 1 USD = 41,28 TL (TCMB, 10:30)","💵 1 USD = 41.28 TRY (CBRT, 10:30)"),2); setSt("gezgin",2); setSt("dosyaci",1); bubble("dosyaci",t("Rapor.docx yazılıyor…","Writing Report.docx…"),4000)}],
+ [13000,()=>bubble("operator",t("Excel grafiği hazır ✓","Excel chart ready ✓"))],
+ [15500,()=>{post("dosyaci",t("✅ Rapor Masaüstü'ne kaydedildi.","✅ Report saved to the Desktop."),2); setSt("dosyaci",2); bubble("mudur",t("İş tamam, patron! 👍","All done, boss! 👍"))}],
+ [18000,()=>post("posta",t("Özet hazır: fatura, toplantı daveti, müşteri sorusu.","Summary ready: an invoice, a meeting invite, a customer question."),1)],
+ [20500,()=>{setSt("gezgin",3)}],
+ [24500,()=>{document.getElementById("meetBtn").classList.add("press"); post(null,t("📅 Toplantı: Günlük brifing — Müdür, Posta, Gezgin, Dosyacı","📅 Meeting: Daily briefing — Manager, Mail, Scout, Files"),0,1)}],
+ [26000,()=>{document.getElementById("meetBtn").classList.remove("press"); meet(["posta","gezgin","dosyaci","mudur"])}],
+ [27000,()=>{bubble("posta",t("Brifing veriyor…","Giving a briefing…"),2600); setSt("posta",1)}],
+ [28500,()=>{post("posta",t("📬 3 önemli mail: fatura, toplantı daveti, müşteri sorusu.","📬 3 important emails: an invoice, a meeting invite, a customer question."),1)}],
+ [30000,()=>{bubble("gezgin",t("Brifing veriyor…","Giving a briefing…"),2600); setSt("gezgin",1); setSt("posta",2)}],
+ [31500,()=>{post("gezgin",t("🌍 Dolar 41,28 TL, piyasa sakin. Haber özeti hazır.","🌍 USD 41.28 TRY, markets calm. News digest ready."),1)}],
+ [33000,()=>{bubble("dosyaci",t("Brifing veriyor…","Giving a briefing…"),2600); setSt("dosyaci",1); setSt("gezgin",2)}],
+ [34500,()=>{post("dosyaci",t("📁 Rapor Masaüstünde, 42 dosya düzenlendi.","📁 Report on the Desktop, 42 files organized."),1)}],
+ [36000,()=>{bubble("mudur",t("Özetliyorum…","Summing up…"),2500); setSt("dosyaci",2)}],
+ [37200,()=>{post("mudur",t("📋 Özet: faturayı öde, daveti onayla, müşteriye bugün dön.","📋 Summary: pay the invoice, accept the invite, reply to the customer today."),1); bubble("mudur",t("Toplantı bitti 👍","Meeting over 👍"),2500)}],
+ [39300,()=>unmeet()],
+];
+function meet(ids){ ids.forEach((id,i)=>{ MEET[i]=id; document.getElementById("seat_"+id).style.opacity=0; document.getElementById("ms"+i).innerHTML=`<g class="br">${torso(E[id])}<g transform="translate(0,-24)">${face(E[id])}</g></g>` }) }
+function unmeet(){ MEET.forEach((id,i)=>{ document.getElementById("seat_"+id).style.opacity=1; document.getElementById("ms"+i).innerHTML="" }); MEET.length=0 }
+let t0=0;
+function loop(){ reset(); TL.forEach(([t,f])=>setTimeout(f,t)); }
+loop(); setInterval(loop,40000);
+// Saat kahveye gidip gelir
+const path=[[5.8,10.3],[7.0,9.2],[9.0,8.6],[13.0,9.6],[14.2,10.0]];
+const seg=path.slice(1).map((q,i)=>Math.hypot(q[0]-path[i][0],q[1]-path[i][1])); const tot=seg.reduce((a,b)=>a+b,0);
+function at(d){ for(let i=0;i<seg.length;i++){ if(d<=seg[i]){const f=d/seg[i];return [path[i][0]+(path[i+1][0]-path[i][0])*f,path[i][1]+(path[i+1][1]-path[i][1])*f, path[i+1][0]-path[i][0]-(path[i+1][1]-path[i][1])]} d-=seg[i]} const L=path.length-1; return [path[L][0],path[L][1],1] }
+const W=document.getElementById("walker"), WK=document.getElementById("wk"), seat=document.getElementById("seat_saat");
+const start=performance.now();
+function frame(now){ const t=((now-start)/1000)%24; let mode,d=0;
+ if(t<5){mode="sit"} else if(t<10){mode="walk";d=(t-5)/5*tot} else if(t<13.5){mode="stand";d=tot} else if(t<18.5){mode="walk";d=tot-(t-13.5)/5*tot} else mode="sit";
+ if(mode=="sit"){ W.setAttribute("opacity",0); seat.style.opacity=1 }
+ else { seat.style.opacity=0; W.setAttribute("opacity",1); const [x,y,dir]=at(d); const [a,b]=P(x,y);
+  const back=t>=13.5; const flip=(dir>0)!==back?1:-1;
+  const bob=mode=="walk"?-Math.abs(Math.sin(now/120))*2:0; W.setAttribute("transform",`translate(${a},${b-34+bob})`); WK.setAttribute("transform",`scale(${flip},1)`);
+  const sw=mode=="walk"?Math.sin(now/120)*16:0;
+  document.getElementById("legL").setAttribute("transform",`rotate(${sw} -3 16)`); document.getElementById("legR").setAttribute("transform",`rotate(${-sw} 3 16)`);
+  }
+ requestAnimationFrame(frame) }
+requestAnimationFrame(frame);
+function fit(){ const k=Math.min(innerWidth/1440,innerHeight/900); document.body.style.transform=`scale(${k})` } addEventListener("resize",fit); fit();
+</script></body></html>
