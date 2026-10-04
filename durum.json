@@ -4,5 +4,6 @@
   "blocked": [],
   "announcement": null,
   "daily_send_limit": 500,
-  "report_url": "https://script.google.com/macros/s/AKfycbwi4F84OOw7vN9YumDE4b4pPuZfDMlw-8GAnMCBSnXqsODHSE4NQvVicgFO-X__uKDORw/exec"
+  "report_url": "https://script.google.com/macros/s/AKfycbwi4F84OOw7vN9YumDE4b4pPuZfDMlw-8GAnMCBSnXqsODHSE4NQvVicgFO-X__uKDORw/exec",
+  "report_key_hash": "c17b004b60db2d94bd4975d8407fd55dd8b54998a8b6e49bde6d006afcb31ed4"
 }
