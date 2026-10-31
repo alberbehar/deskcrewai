@@ -1,130 +1,175 @@
 <!doctype html>
-<html lang="tr"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>DeskCrew AI 3D ofis</title>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DeskCrew AI — Panel</title>
 <style>
-:root{--bg:#0b1220;--panel:#111b2e;--ink:#e7edf7;--muted:#8a98b0;--line:#1f2b42;--acc:#2f6fe0;--ok:#22c55e;--body:"Segoe UI",Inter,system-ui,sans-serif}
-*{box-sizing:border-box}html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:14px/1.45 var(--body);overflow:hidden}
-.app{display:grid;grid-template-columns:78px minmax(0,1fr) 320px;grid-template-rows:56px minmax(0,1fr);height:100%}
-.top{grid-column:1/-1;display:flex;align-items:center;gap:14px;padding:0 18px;border-bottom:1px solid var(--line);background:linear-gradient(#0e1729,#0b1322)}
-.lg{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:800}.lg i{width:30px;height:30px;border-radius:50%;background:conic-gradient(from 200deg,#3a6cf0,#1ca078,#5ad1ff,#3a6cf0);position:relative;box-shadow:0 0 14px #3a6cf088}
-.lg i:after{content:"";position:absolute;inset:8px;border-radius:50%;background:#0e1729}.lg span{font-weight:400;color:#7fb0ff}
-.sub{color:#7f93b5;font-size:13px}.sp{flex:1}
-.pill{border:1px solid #2a3a58;border-radius:10px;padding:6px 12px;font-size:12.5px;display:flex;align-items:center;gap:7px;background:#0f1a2e}
-.pill i{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 7px var(--ok)}
-.nav{background:#0c1424;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:4px;padding-top:10px;align-items:center}
-.nav div{width:66px;text-align:center;color:#8fa0bd;font-size:11.5px;padding:9px 0;border-radius:10px}.nav div b{display:block;font-size:18px;font-weight:400}
-.nav .on{background:#14223b;color:#fff;box-shadow:inset 3px 0 0 #4f8cff}
-#stage{position:relative;min-width:0;min-height:0}
-.chat{background:var(--panel);border-left:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
-.chat header{padding:14px 16px;border-bottom:1px solid var(--line)}.chat header b{font-size:15px}.chat header small{display:block;color:var(--muted)}
-.msgs{flex:1;padding:12px;display:flex;flex-direction:column;justify-content:flex-end;gap:9px;overflow:hidden}
-.m{max-width:88%;padding:8px 12px;border-radius:14px;font-size:13px;animation:in .35s ease-out}
-.m.me{align-self:flex-end;background:var(--acc)}.m.ai{background:#1a2740}.m.ai em{display:block;font-style:normal;color:#7fb0ff;font-size:11.5px;font-weight:700;margin-bottom:2px}
-.m.st{align-self:center;background:none;color:var(--muted);font-size:12px}
-@keyframes in{from{opacity:0;transform:translateY(8px)}}
-.inp{margin:10px;background:#0b1322;border:1px solid #2a3a58;border-radius:12px;padding:11px;color:var(--muted)}
-/* video yazıları */
-.cap{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);background:rgba(9,15,28,.86);border:1px solid #2a3a58;color:#fff;border-radius:16px;padding:12px 26px;font-size:clamp(18px,2.6vw,30px);font-weight:700;white-space:nowrap;box-shadow:0 18px 50px rgba(0,0,0,.45);transition:opacity .4s;opacity:0;z-index:20}
-.card{position:fixed;inset:0;display:grid;place-items:center;text-align:center;background:radial-gradient(ellipse at 50% 45%,rgba(20,36,70,.82),rgba(7,12,24,.95));z-index:30;opacity:0;transition:opacity .5s;pointer-events:none}
-.card h1{margin:0;font-size:clamp(40px,7vw,86px);letter-spacing:-.02em}.card h1 span{color:#7fb0ff}.card p{margin:10px 0 0;font-size:clamp(18px,2.4vw,30px);color:#c8d3e6}
-.card .dl{display:inline-block;margin-top:26px;background:#2f6fe0;color:#fff;border-radius:14px;padding:14px 28px;font-size:clamp(16px,2vw,24px);font-weight:700}
-.card .ring{width:clamp(70px,9vw,110px);height:clamp(70px,9vw,110px);border-radius:50%;margin:0 auto 22px;background:conic-gradient(from 200deg,#3a6cf0,#1ca078,#5ad1ff,#3a6cf0);position:relative;box-shadow:0 0 40px #3a6cf088}
-.card .ring:after{content:"";position:absolute;inset:24%;border-radius:50%;background:#0b1220}
-body.video .cap,body.video .card,body.video .o3-bub{transition:none!important}body.video .m{animation:none}body.video .o3-hint,body.video .o3-tools{display:none}
-.fallback{position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);text-align:center;padding:20px}
-@media (max-width:980px){.app{grid-template-columns:0 minmax(0,1fr) 0}.nav,.chat{display:none}.sub{display:none}}
+html,body{margin:0;height:100%;background:#0a0710;overflow:hidden;font-family:"Segoe UI",system-ui,-apple-system,sans-serif;color:#f1e9e1}
+canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.log{position:absolute;left:14px;bottom:12px;width:min(46%,380px);font:12px/1.65 "JetBrains Mono",ui-monospace,Consolas,monospace;color:#cbbfb3;pointer-events:none}
+.log div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;animation:in .4s ease}
+.log b{font-weight:700}
+.log .d{color:#fb923c}.log .e{color:#a78bfa}.log .s{color:#38bdf8}
+.log span{color:#7a6e66;margin-right:6px}
+@keyframes in{from{opacity:0;transform:translateY(6px)}}
+.hint{position:absolute;right:14px;top:12px;font:11.5px "JetBrains Mono",ui-monospace,monospace;color:#b9a99a;border:1px solid #3a2616;border-radius:99px;padding:4px 11px;background:rgba(20,12,8,.7)}
+.card{position:absolute;right:14px;top:46px;width:min(260px,44%);background:rgba(18,11,8,.92);border:1px solid #4a2c16;border-radius:14px;padding:14px 15px;box-shadow:0 10px 30px rgba(0,0,0,.5);transition:opacity .3s,transform .3s}
+.card[hidden]{display:block;opacity:0;transform:translateY(8px);pointer-events:none}
+.card h4{margin:0 0 2px;font-size:16px}
+.card small{color:#b9a99a}
+.card p{margin:10px 0 0;font-size:13px;color:#e8dccf}
+.card .k{font:600 10.5px "JetBrains Mono",monospace;color:#fb923c;letter-spacing:.06em;text-transform:uppercase;margin-top:12px}
+.card button{margin-top:12px;background:none;border:1px solid #5a3519;color:#fdba74;border-radius:9px;padding:6px 10px;font:600 12px inherit;cursor:pointer}
+@media (max-width:560px){.log{width:calc(100% - 28px);font-size:11px}.card{width:calc(100% - 28px)}}
 </style>
-</head><body>
-<div class="app">
- <div class="top"><div class="lg"><i></i>DeskCrew AI <span>Office</span></div><span class="sub" id="tSub"></span><span class="sp"></span><span class="pill"><i></i><span id="tAct"></span></span></div>
- <div class="nav"><div class="on"><b>🏢</b><span data-t="Ofis|Office"></span></div><div><b>💬</b><span data-t="Sohbet|Chat"></span></div><div><b>☑️</b><span data-t="Görevler|Tasks"></span></div><div><b>📊</b><span data-t="Etkinlik|Activity"></span></div><div><b>⚙️</b><span data-t="Ayarlar|Settings"></span></div></div>
- <div id="stage"></div>
- <div class="chat"><header><b data-t="Ekip|Team"></b><small data-t="Herkes sırayla cevap verir|Everyone answers in turn"></small></header><div class="msgs" id="msgs"></div><div class="inp" data-t="Ekibe bir iş ver…|Give the team a task…"></div></div>
-</div>
-<div class="cap" id="cap"></div>
-<div class="card" id="cardA"><div><div class="ring"></div><h1>DeskCrew <span>AI</span></h1><p data-t="Masaüstündeki yapay zeka ekibin|Your AI team on your desktop"></p></div></div>
-<div class="card" id="cardB"><div><div class="ring"></div><h1>DeskCrew <span>AI</span></h1><p data-t="Sen söyle, ekibin halletsin.|You say it, your team does it."></p><span class="dl" data-t="Windows için ücretsiz · deskcrewai.com|Free for Windows · deskcrewai.com"></span></div></div>
-<script src="office3d.js"></script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="hint" id="hint"></div>
+<div class="card" id="card" hidden></div>
+<div class="log" id="log"></div>
 <script>
-const Q = new URLSearchParams(location.search), EN = Q.get("lang") === "en", VIDEO = Q.get("video") === "1";
+const Q = new URLSearchParams(location.search), EN = Q.get("lang") === "en";
 const t = s => { const [a, b] = s.split("|"); return EN ? b : a };
 document.documentElement.lang = EN ? "en" : "tr";
-document.querySelectorAll("[data-t]").forEach(e => e.textContent = t(e.dataset.t));
-document.getElementById("tSub").textContent = t("› Sen söyle, ekibin halletsin.|› You say it, your team does it.");
+document.getElementById("hint").textContent = t("gezegene tıkla: içine gir|click a planet to step inside");
 
-// ---- ekip (programdaki hazır ekip) ----
-const LOOKS = { mudur: { skin: "#efc3a0", hair: "#8a8f99", hs: "side", beard: 1, tie: 1, collar: "#f2f4f8", c: "#283043" }, posta: { skin: "#f2c9a8", hair: "#6b3a1e", hs: "long" },
-  gezgin: { skin: "#c98e65", hair: "#1d1d1d", hs: "curly", glasses: 1 }, dosyaci: { skin: "#f3d2b8", hair: "#d8b25a", hs: "bun" }, saat: { skin: "#a86f4c", hair: "#2b1b12", hs: "short", glasses: 1 },
-  operator: { skin: "#f0c09b", hair: "#4a2f20", hs: "short", headset: 1 }, yazilimci: { skin: "#e8b48f", hair: "#1d1d1d", hs: "curly", glasses: 1 }, asistan: { skin: "#f3d2b8", hair: "#3b2416", hs: "long", headset: 1 } };
-const TEAM = [["mudur", "Müdür|Manager", "#18202b", "team", "⭐"], ["posta", "Posta|Mail", "#d9485f", "mail", "✉️"], ["gezgin", "Gezgin|Scout", "#2f6fe0", "web", "🔎"], ["dosyaci", "Dosyacı|Files", "#d98a1c", "files", "📁"],
-  ["saat", "Saat|Time", "#1f9b74", "tasks", "⏰"], ["operator", "Operatör|Operator", "#8b5cf6", "computer", "🖱️"], ["yazilimci", "Yazılımcı|Developer", "#0ea5a4", "code", "💻"], ["asistan", "Asistan|Assistant", "#db2777", "phone", "📞"]];
-const N = {}, people = {};
-TEAM.forEach(([id, n, c, kind, icon], i) => { N[id] = t(n); people[id] = { i, id, n: N[id], c, icon, kind, ...LOOKS[id] } });
-const rooms = [{ id: "r1", type: "work", key: "mail" }, { id: "r2", type: "work", key: "files" }, { id: "r3", type: "ceo", key: "ceo" }, { id: "r4", type: "lounge", key: "lounge" }, { id: "r5", type: "meeting", key: "meeting" }, { id: "r6", type: "work", key: "ops", desks: 3 }];
-const seats = { posta: "r1", gezgin: "r1", dosyaci: "r2", saat: "r2", mudur: "r3", operator: "r6", yazilimci: "r6", asistan: "r6" };
-const names = { r1: t("Mail & Araştırma|Mail & Research"), r2: t("Dosya & Planlama|Files & Planning"), r3: t("CEO Ofisi|CEO Office"), r4: t("Dinlenme Alanı|Lounge"), r5: t("Toplantı Odası|Meeting Room"), r6: t("Operasyon|Operations") };
-const ST = [ "", t("Çalışıyor|Working"), t("Takipte|Following"), t("Boşta|Idle") ];
-const stage = document.getElementById("stage"), msgs = document.getElementById("msgs");
-let O = window.OFFICE3D;
-if (!O || !O.supported()) { stage.innerHTML = `<div class="fallback">${t("Bu tarayıcı 3D görüntüyü desteklemiyor.|This browser can't show 3D.")}</div>`; O = null }
-else {
-  O.mount(stage, { zoom: false, controls: !matchMedia("(pointer:coarse)").matches, onSelect: id => O.select(id) });
-  O.build({ rooms, seats, people, names, texts: { st: ST, inMeeting: t("Toplantıda|In a meeting"), hire: "", reset: t("⟲ Görünümü sıfırla|⟲ Reset view"), hint: t("Sürükleyerek döndür|Drag to rotate") } });
-  ["saat", "dosyaci"].forEach(id => O.status(id, 2));
-}
-let meet = null;
-const state = {}; Object.keys(people).forEach(id => state[id] = 3); state.saat = state.dosyaci = 2;
-function setSt(id, k) { state[id] = k; if (O) O.status(id, k, meet && meet.includes(id)); const n = Object.values(state).filter(x => x < 3).length; document.getElementById("tAct").textContent = `${n}/8 ${t("aktif|active")}` }
-setSt("saat", 2);
-function msg(kind, text, who) { const d = document.createElement("div"); d.className = "m " + kind; if (who) { const e = document.createElement("em"); e.textContent = N[who]; d.appendChild(e) } d.appendChild(document.createTextNode(text)); msgs.appendChild(d); while (msgs.children.length > 7) msgs.firstChild.remove() }
-const say = (id, s, ms = 4200) => O && O.bubble(id, t(s), ms);
-// ---- senaryo: [zaman (sn), iş] ----
-const S = [
- [0.5, () => msg("me", t("Kadıköy'deki diş kliniklerini bul, yarın için randevu al|Find dental clinics near me and book one for tomorrow"))],
- [1.6, () => { setSt("mudur", 1); say("mudur", "Gezgin, bu iş sende!|Scout, this one's yours!", 2600) }],
- [3.0, () => { setSt("mudur", 3); setSt("gezgin", 1); say("gezgin", "İnternette arıyor…|Searching the web…", 3000) }],
- [6.0, () => { setSt("gezgin", 3); say("gezgin", "3 klinik buldum 👍|Found 3 clinics 👍", 2600); msg("ai", t("3 klinik buldum, en yakını Kadıköy Dent.|Found 3 clinics; the closest is Bay Dental."), "gezgin") }],
- [7.5, () => { setSt("asistan", 1); say("asistan", "Telefonla arıyor…|On a phone call…", 3300); msg("st", t("📞 Telefonla arama… (Kadıköy Dent)|📞 Phone call… (Bay Dental)")) }],
- [11.0, () => { setSt("asistan", 3); say("asistan", "Yarın 14:30'a randevu alındı ✅|Booked for tomorrow 2:30 PM ✅", 3000); msg("ai", t("Yarın 14:30'a randevu alındı, takvime ekledim ✅|Booked for tomorrow at 2:30 PM and added to your calendar ✅"), "asistan") }],
- [12.8, () => msg("me", t("CV'mi Word'de hazırla, ik@firma.com'a gönder|Make my CV in Word and send it to hr@company.com"))],
- [13.8, () => { setSt("posta", 1); say("posta", "Mail yazıp gönderiyor…|Writing & sending an email…", 3000) }],
- [16.6, () => { setSt("posta", 3); say("posta", "CV gönderildi ✉️|CV sent ✉️", 2500); msg("ai", t("CV.docx hazır ve ik@firma.com'a gönderildi.|CV.docx is ready and sent to hr@company.com."), "posta") }],
- [17.6, () => { setSt("yazilimci", 1); say("yazilimci", "Kod yazıyor…|Writing code…", 3000); msg("me", t("Sitemdeki iletişim formunu düzelt|Fix the contact form on my site")) }],
- [20.4, () => { setSt("yazilimci", 3); say("yazilimci", "Düzelttim, testler geçti ✅|Fixed, tests passing ✅", 2600); msg("ai", t("Form düzeldi, testler geçti ✅|The form is fixed and tests pass ✅"), "yazilimci") }],
- [21.6, () => { meet = ["mudur", "posta", "gezgin", "dosyaci", "saat", "operator", "yazilimci", "asistan"]; if (O) O.meeting(meet); meet.forEach(id => setSt(id, state[id])); msg("st", t("📅 Toplantı: haftalık plan|📅 Meeting: weekly plan")) }],
- [22.6, () => say("mudur", "Bu haftanın önceliği yeni müşteriler.|This week's priority: new customers.", 2600)],
- [24.0, () => say("gezgin", "Rakip fiyatlarını çıkardım.|I've pulled competitor prices.", 2400)],
- [25.4, () => say("posta", "3 teklif maili cevap bekliyor.|3 offer emails need replies.", 2400)],
- [27.0, () => { const m = meet; meet = null; if (O) O.meeting(null); m.forEach(id => setSt(id, state[id])); say("mudur", "Özeti mailine gönderdim.|I've emailed you the summary.", 2600); msg("ai", t("Toplantı özeti ve yapılacaklar listesi mailinde.|Meeting summary and to-do list are in your inbox."), "mudur") }],
+const TEAM = [
+  { id: "mudur", name: t("Müdür|Manager"), role: t("Ekibin yöneticisi|Runs the team"), col: "#fb923c" },
+  { id: "posta", name: t("Posta|Mail"), role: t("E-posta asistanı|Email assistant"), col: "#d9485f" },
+  { id: "gezgin", name: t("Gezgin|Scout"), role: t("Araştırmacı|Researcher"), col: "#2f6fe0" },
+  { id: "dosya", name: t("Dosyacı|Files"), role: t("Dosya düzenleyici|File organizer"), col: "#d98a1c" },
+  { id: "saat", name: t("Saat|Clock"), role: t("Zamanlanmış işler|Scheduled tasks"), col: "#1f9b74" },
+  { id: "finans", name: t("Finans|Finance"), role: t("Fatura ve ödemeler|Bills and payments"), col: "#8b5cf6" }
 ];
-const LOOP = 31;
-if (!VIDEO) {   // sitede canlı: senaryo döngüde oynar
-  let k = 0, base = performance.now() / 1000;
-  setInterval(() => { const now = performance.now() / 1000 - base; while (k < S.length && S[k][0] <= now) S[k++][1](); if (now > LOOP) { k = 0; base = performance.now() / 1000; msgs.innerHTML = "" } }, 100);
-} else {        // tanıtım videosu: renderAt(saniye) ile kare kare çizilir
-  document.body.classList.add("video");
-  const CAP = [[3.3, 5.0, "Sen söyle, ekibin halletsin.|You say it, your team does it."], [5.1, 8.8, "İnternette araştırır.|It researches the web."], [9.4, 14.4, "Senin adına arar, randevu alır.|It calls and books for you."],
-    [14.6, 19.2, "Mailini yazar, dosyanı hazırlar.|It writes your email and documents."], [19.4, 23.2, "Kod yazar, test eder.|It writes and tests code."], [23.6, 29.0, "Toplantı yapar, Müdür özetler.|It holds meetings; the Manager sums up."],
-    [29.8, 33.0, "Canlı 3D ofis: kim ne yapıyor, gör.|A live 3D office: see who's doing what."]];
-  const cap = document.getElementById("cap"), A = document.getElementById("cardA"), B = document.getElementById("cardB");
-  let k = 0, home = null, P0 = {};
-  const ease = x => x < 0 ? 0 : x > 1 ? 1 : x * x * (3 - 2 * x);
-  window.renderAt = (sec, draw) => {
-    if (!O) return; O._manual(); O._clock(() => sec * 1000 + 100000);
-    if (!home) { home = O.fitView(); Object.keys(people).forEach(id => P0[id] = O.charPos(id)) }
-    while (k < S.length && S[k][0] + 2 <= sec) S[k++][1]();   // senaryo 2 sn kaydırılır (önce başlık)
-    // kamera: genel → kişi → genel
-    const at = id => { const p = P0[id]; return { target: [p[0], 1.0, p[2]], dist: home.dist * 0.42 } };
-    const mr = { target: [2 * 6.4 + 3.2, 0.9, 2.8], dist: home.dist * 0.5 };
-    const K = [[0, home], [4.4, home], [5.6, at("gezgin")], [8.4, at("gezgin")], [9.6, at("asistan")], [13.8, at("asistan")], [15.2, at("posta")], [18.8, at("posta")], [19.9, at("yazilimci")], [22.7, at("yazilimci")], [24.0, mr], [28.8, mr], [30.4, home], [99, home]];
-    let i = 0; while (i < K.length - 2 && K[i + 1][0] <= sec) i++;
-    const [t0, a] = K[i], [t1, b] = K[i + 1], f = ease((sec - t0) / Math.max(0.01, t1 - t0)), L = (x, y) => x + (y - x) * f;
-    O.view([L(a.target[0], b.target[0]), L(a.target[1], b.target[1]), L(a.target[2], b.target[2])], L(a.dist, b.dist), 0.78 + Math.sin(sec * 0.15) * 0.06, 0.66);
-    const c = CAP.find(([s, e]) => sec >= s && sec < e); if (c) cap.textContent = t(c[2]); cap.style.opacity = c ? Math.min(1, (sec - c[0]) / 0.3, (c[1] - sec) / 0.3) : 0;
-    A.style.opacity = 1 - ease((sec - 2.6) / 0.6); B.style.opacity = ease((sec - 33.0) / 0.6);
-    if (draw !== false) O._renderAt(sec * 1000 + 100000) };
-  window.__ready = true;
+const byId = Object.fromEntries(TEAM.map(e => [e.id, e]));
+const STATE = Object.fromEntries(TEAM.map(e => [e.id, { st: "idle", now: t("Boşta, iş bekliyor.|Idle, waiting for work.") }]));
+const LINKS = {}, MSGS = [];
+
+// Senaryo: Müdür işi dağıtır, çalışanlar birbirine danışır (döngü halinde tekrarlar)
+const SCRIPT = [
+  ["d", "mudur", "posta", t("Son 24 saatin önemli maillerini özetle|Summarize today's important emails")],
+  ["w", "posta", t("Mailleri okuyor…|Reading emails…")],
+  ["d", "mudur", "gezgin", t("Bugünkü dolar kurunu bul|Find today's USD rate")],
+  ["w", "gezgin", t("İnternette arıyor…|Searching the web…")],
+  ["e", "posta", "finans", t("Bu faturayı ödendi olarak işaretler misin?|Can you mark this bill as paid?")],
+  ["w", "finans", t("Faturaları kontrol ediyor…|Checking bills…")],
+  ["r", "gezgin", "mudur", t("Dolar 41,82 TL|USD = 41.82 TRY")],
+  ["e", "finans", "gezgin", t("120 doları TL'ye çevirir misin?|Convert $120 to TRY?")],
+  ["r", "gezgin", "finans", "120 $ ≈ 5.018 TL"],
+  ["r", "posta", "mudur", t("3 önemli mail var, özet hazır|3 important emails, summary ready")],
+  ["d", "mudur", "dosya", t("İndirilenler klasörünü düzenle|Tidy the Downloads folder")],
+  ["w", "dosya", t("34 dosyayı sıralıyor…|Sorting 34 files…")],
+  ["d", "mudur", "saat", t("Her sabah 9'da rapor gönder|Send a report every day at 9")],
+  ["r", "dosya", "mudur", t("Bitti, hiçbir şey silinmedi|Done, nothing deleted")],
+  ["r", "saat", "mudur", t("Görev kuruldu · yarın 09:00|Task set · tomorrow 09:00")]
+];
+let step = 0;
+const logEl = document.getElementById("log");
+function log(kind, text) {
+  const d = new Date(), hh = String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0") + ":" + String(d.getSeconds()).padStart(2, "0");
+  const el = document.createElement("div");
+  const lab = kind === "d" ? t("MÜDÜR|MANAGER") : kind === "e" ? t("EKİP|TEAM") : t("SİSTEM|SYSTEM");
+  el.innerHTML = `<span>${hh}</span><b class="${kind === "d" ? "d" : kind === "e" ? "e" : "s"}">${lab}</b> `;
+  el.appendChild(document.createTextNode(text));
+  logEl.prepend(el);
+  while (logEl.children.length > 5) logEl.lastChild.remove();
 }
+function link(a, b) { const k = [a, b].sort().join("|"); LINKS[k] = (LINKS[k] || 0) + 1 }
+function tick() {
+  const s = SCRIPT[step % SCRIPT.length]; step++;
+  if (step % SCRIPT.length === 1 && step > 1) { for (const k in LINKS) LINKS[k] = Math.max(0, LINKS[k] - 1) }
+  const [k, a, b, txt] = s;
+  if (k === "w") { STATE[a] = { st: "busy", now: b }; log("s", `${byId[a].name} · ${b}`) }
+  else {
+    MSGS.push({ from: a, to: b, t: performance.now() }); link(a, b);
+    if (k === "r") { STATE[a] = { st: "idle", now: t("Boşta, iş bekliyor.|Idle, waiting for work."), last: txt } }
+    else STATE[b] = { st: "busy", now: txt };
+    log(k === "d" ? "d" : k === "e" ? "e" : "s", `${byId[a].name} → ${byId[b].name}: ${txt}`);
+  }
+  if (ZOOM && ZOOM.dir > 0) card();
+}
+setInterval(tick, 1700); setTimeout(tick, 300);
+
+// --- çizim ---
+const cv = document.getElementById("c"), g = cv.getContext("2d");
+let W = 0, H = 0, dpr = 1, stars = [], dust = [];
+function size() {
+  dpr = Math.min(2, window.devicePixelRatio || 1); W = innerWidth; H = innerHeight;
+  cv.width = W * dpr; cv.height = H * dpr;
+  let s = 7; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  stars = Array.from({ length: 220 }, () => [rnd() * W, rnd() * H, rnd() * 1.4 + .2, rnd() * 6]);
+  dust = Array.from({ length: 360 }, () => [rnd() * 7, .5 + rnd() * .55, rnd() < .5 ? "251,146,60" : "167,139,250", rnd()]);
+}
+addEventListener("resize", size); size();
+function ball(x, y, r, col, glow) {
+  if (glow) { const gg = g.createRadialGradient(x, y, r, x, y, r * 3.2); gg.addColorStop(0, glow); gg.addColorStop(1, "rgba(0,0,0,0)"); g.fillStyle = gg; g.beginPath(); g.arc(x, y, r * 3.2, 0, 7); g.fill() }
+  const gr = g.createRadialGradient(x - r * .4, y - r * .4, r * .1, x, y, r); gr.addColorStop(0, "#fff"); gr.addColorStop(.25, col); gr.addColorStop(1, "#0b0a12");
+  g.fillStyle = gr; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill();
+}
+const POS = {}; let hits = [], ZOOM = null, VIEW = { s: 1, ox: 0, oy: 0 }, SEL = null;
+function frame(now) {
+  requestAnimationFrame(frame);
+  const T = now / 1000, small = W < 560, cx = W * (small ? .5 : .58), cy = H * (small ? .4 : .46);
+  g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
+  for (const s of stars) { g.fillStyle = `rgba(255,230,210,${.2 + .35 * Math.sin(T * 1.3 + s[3]) ** 2})`; g.fillRect(s[0], s[1], s[2], s[2]) }
+  if (ZOOM) { ZOOM.k = Math.max(0, Math.min(1, ZOOM.k + ZOOM.dir * .06)); if (ZOOM.k === 0 && ZOOM.dir < 0) ZOOM = null }
+  const zk = ZOOM ? ZOOM.k * ZOOM.k * (3 - 2 * ZOOM.k) : 0, F = ZOOM && POS[ZOOM.id] ? POS[ZOOM.id] : [cx, cy];
+  const zs = 1 + 2 * zk, Lx = F[0] + (W * (small ? .5 : .32) - F[0]) * zk, Ly = F[1] + (H * (small ? .3 : .5) - F[1]) * zk;
+  VIEW = { s: zs, ox: Lx - F[0] * zs, oy: Ly - F[1] * zs };
+  g.setTransform(dpr * zs, 0, 0, dpr * zs, dpr * VIEW.ox, dpr * VIEW.oy);
+  const R = Math.min(W * (small ? .46 : .38), H * .9), ry = .34;
+  for (const d of dust) { const a = d[0] + T * .03 * (1.4 - d[1]), rr = R * d[1]; g.fillStyle = `rgba(${d[2]},${.2 + .3 * d[3]})`; g.fillRect(cx + Math.cos(a) * rr, cy + Math.sin(a) * rr * ry, 1.3, 1.3) }
+  hits = [];
+  const lead = TEAM[0], ring = TEAM.slice(1);
+  const sunR = (small ? 20 : 26) + Math.sin(T * 2) * 1.2;
+  ball(cx, cy, sunR, lead.col, "rgba(251,146,60,.45)");
+  g.strokeStyle = "rgba(251,191,36,.5)"; g.lineWidth = 1; g.beginPath(); g.ellipse(cx, cy, sunR + 9, (sunR + 9) * .35, -.25, 0, 7); g.stroke();
+  POS[lead.id] = [cx, cy]; hits.push({ id: lead.id, x: cx, y: cy, r: sunR });
+  g.textAlign = "center";
+  g.font = "700 11px 'JetBrains Mono',ui-monospace,monospace"; g.fillStyle = "#fdba74"; g.fillText(lead.name.toLocaleUpperCase(EN ? "en" : "tr"), cx, cy + sunR + 18);
+  ring.forEach((e, i) => {
+    const k = (i + 1) / (ring.length + 1), rx = R * (.42 + .58 * k), a = i * 2.39996 + T * (.16 / (.5 + k));
+    g.strokeStyle = "rgba(148,163,184,.10)"; g.lineWidth = 1; g.beginPath(); g.ellipse(cx, cy, rx, rx * ry, 0, 0, 7); g.stroke();
+    const x = cx + Math.cos(a) * rx, y = cy + Math.sin(a) * rx * ry, busy = STATE[e.id].st === "busy", rad = (small ? 8 : 10) + (i % 3) * 2;
+    ball(x, y, rad, e.col, busy ? `rgba(245,158,11,${.35 + .25 * Math.sin(T * 5)})` : null);
+    if (i % 3 === 1) { g.strokeStyle = "rgba(255,255,255,.35)"; g.beginPath(); g.ellipse(x, y, rad + 6, (rad + 6) * .3, -.4, 0, 7); g.stroke() }
+    if (e.id === SEL) { g.strokeStyle = "#fff"; g.lineWidth = 1.5; g.beginPath(); g.arc(x, y, rad + 5, 0, 7); g.stroke() }
+    g.font = "700 11px 'JetBrains Mono',ui-monospace,monospace"; g.fillStyle = e.col; g.fillText(e.name.toLocaleUpperCase(EN ? "en" : "tr"), x, y - rad - 8);
+    g.font = "500 10px 'JetBrains Mono',ui-monospace,monospace"; g.fillStyle = busy ? "#fbbf24" : "#94a3b8";
+    g.fillText(busy ? t("görevde|on task") : t("boşta|idle"), x, y + rad + 13);
+    POS[e.id] = [x, y]; hits.push({ id: e.id, x, y, r: rad });
+  });
+  for (const key in LINKS) { const n = LINKS[key]; if (!n) continue; const [a, b] = key.split("|"), A = POS[a], B = POS[b];
+    g.strokeStyle = `rgba(253,186,116,${Math.min(.45, .1 + n * .07)})`; g.lineWidth = Math.min(3, .8 + n * .35) / zs; g.beginPath(); g.moveTo(A[0], A[1]); g.lineTo(B[0], B[1]); g.stroke() }
+  for (const m of MSGS) { const age = (now - m.t) / 1000, A = POS[m.from], B = POS[m.to]; if (age > 6) continue;
+    const f = Math.min(1, age / 1.4);
+    g.strokeStyle = `rgba(253,186,116,${.5 * (1 - age / 6)})`; g.lineWidth = 1.2 / zs; g.setLineDash([4, 5]); g.beginPath(); g.moveTo(A[0], A[1]); g.lineTo(B[0], B[1]); g.stroke(); g.setLineDash([]);
+    const x = A[0] + (B[0] - A[0]) * f, y = A[1] + (B[1] - A[1]) * f, gg = g.createRadialGradient(x, y, 0, x, y, 9);
+    gg.addColorStop(0, "rgba(255,237,213,1)"); gg.addColorStop(1, "rgba(251,146,60,0)"); g.fillStyle = gg; g.beginPath(); g.arc(x, y, 9, 0, 7); g.fill() }
+  while (MSGS.length && now - MSGS[0].t > 7000) MSGS.shift();
+}
+requestAnimationFrame(frame);
+
+// --- tıklayınca içine gir ---
+const cardEl = document.getElementById("card");
+function card() {
+  if (!ZOOM) { cardEl.hidden = true; return }
+  const e = byId[ZOOM.id], s = STATE[e.id];
+  const peers = Object.entries(LINKS).filter(([k, n]) => n && k.split("|").includes(e.id)).map(([k, n]) => byId[k.split("|").find(x => x !== e.id)].name + " · " + n);
+  cardEl.innerHTML = `<h4 style="color:${e.col}">${e.name}</h4><small>${e.role}</small>
+    <div class="k">${t("Şu an|Right now")}</div><p></p>
+    <div class="k">🔗 ${t("Bağlantıları|Connections")}</div><p>${peers.length ? peers.join("  ") : t("Henüz yok|None yet")}</p>
+    <button type="button">← ${t("Haritaya dön|Back to map")}</button>`;
+  cardEl.querySelector("p").textContent = s.now + (s.last ? "  ·  " + t("Son|Last") + ": " + s.last : "");
+  cardEl.querySelector("button").onclick = out;
+  cardEl.hidden = false;
+}
+function out() { if (ZOOM) ZOOM.dir = -1; SEL = null; cardEl.hidden = true }
+function hitAt(ev) { const x = (ev.clientX - VIEW.ox) / VIEW.s, y = (ev.clientY - VIEW.oy) / VIEW.s; return hits.find(p => Math.hypot(p.x - x, p.y - y) < p.r + 12 / VIEW.s) }
+cv.addEventListener("click", ev => { const h = hitAt(ev); if (h) { ZOOM = { id: h.id, k: ZOOM && ZOOM.id === h.id ? ZOOM.k : 0, dir: 1 }; SEL = h.id; card() } else if (ZOOM) out() });
+cv.addEventListener("mousemove", ev => { cv.style.cursor = hitAt(ev) ? "pointer" : "default" });
 </script>
-</body></html>
+</body>
+</html>

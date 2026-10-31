@@ -114,13 +114,29 @@ footer .wrap{display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
 .chips3 b{display:block;margin-bottom:4px}
 .chips3 span{color:var(--muted);font-size:14.5px}
 @media (max-width:860px){.chips3{grid-template-columns:1fr}}
+
+/* v2.80: gezegen teması — uygulamadaki Panel ile aynı görünüm */
+:root:root:root{--bg:#0a0710;--panel:#140d10;--ink:#f3ebe3;--muted:#b6a79a;--line:#2e2019;--brand:#fb923c;--brand2:#a78bfa;--soft:#1c1310;color-scheme:dark}
+body{background:radial-gradient(1100px 560px at 75% -8%,rgba(251,146,60,.17),transparent 60%),radial-gradient(900px 520px at -5% 35%,rgba(139,92,246,.12),transparent 60%),var(--bg);background-attachment:fixed}
+body:before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.55;background-image:radial-gradient(1px 1px at 12% 18%,#ffe3c8 50%,transparent 51%),radial-gradient(1px 1px at 68% 8%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 40% 62%,#ffd8b0 50%,transparent 51%),radial-gradient(1px 1px at 88% 44%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 25% 85%,#d8c8ff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 78% 78%,#ffe3c8 50%,transparent 51%),radial-gradient(1px 1px at 55% 35%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 5% 55%,#fff 50%,transparent 51%);background-size:420px 420px}
+header{background:rgba(10,7,16,.72)!important;border-bottom-color:var(--line)!important}
+.btn.pri{background:linear-gradient(135deg,#fb923c,#ea580c);color:#1a0b03;box-shadow:0 6px 22px rgba(251,146,60,.28)}
+.btn.sec,.btn.ghost{border-color:#4a2c16}
+.step:before{background:linear-gradient(135deg,#fb923c,#a78bfa);color:#140a04}
+.dl{background:radial-gradient(circle at 88% 50%,rgba(251,146,60,.55),transparent 42%),radial-gradient(circle at 10% 120%,rgba(139,92,246,.35),transparent 45%),linear-gradient(135deg,#24120a,#17102a);border:1px solid #4a2c16}
+.card,.step,details,.reg,.chips3 div{background:rgba(20,13,16,.78);border-color:var(--line)}
+.card:hover{border-color:#5a3519;box-shadow:0 10px 30px rgba(251,146,60,.08)}
+.demo{background:#0a0710;border-color:#3a2616;box-shadow:0 20px 60px rgba(0,0,0,.55),0 0 80px rgba(251,146,60,.08)}
+.demo .live i,.pill i{background:#fb923c}
+.rf input{background:#120c0e;border-color:var(--line);color:var(--ink)}
+.lang button.on{background:#fb923c;color:#1a0b03}
 </style>
 </head>
 <body>
 <header><div class="wrap nav">
-  <a class="logo" href="#"><svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a6cf0"/><stop offset="1" stop-color="#1ca078"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="15" fill="url(#g)"/><rect x="14" y="20" width="36" height="26" rx="8" fill="#fff"/><circle cx="25" cy="33" r="3.6" fill="#18202b"/><circle cx="39" cy="33" r="3.6" fill="#18202b"/><rect x="29" y="10" width="6" height="10" rx="3" fill="#fff"/></svg>DeskCrew <b>AI</b><small class="by">by alberbehar</small></a>
+  <a class="logo" href="#"><svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true"><defs><radialGradient id="pgS" cx=".35" cy=".35" r=".75"><stop offset="0" stop-color="#fff"/><stop offset=".3" stop-color="#fb923c"/><stop offset="1" stop-color="#3a1608"/></radialGradient></defs><rect x="2" y="2" width="60" height="60" rx="15" fill="#160b0c"/><circle cx="32" cy="33" r="17" fill="#fb923c" opacity=".18"/><ellipse cx="32" cy="33" rx="25" ry="9" fill="none" stroke="#fdba74" stroke-opacity=".6" stroke-width="2.4" transform="rotate(-12 32 33)"/><circle cx="32" cy="33" r="11.5" fill="url(#pgS)"/><circle cx="10" cy="39" r="4.6" fill="#8b5cf6"/><circle cx="54.5" cy="27.5" r="5" fill="#3b82f6"/><circle cx="41" cy="42" r="3.3" fill="#1f9b74"/></svg>DeskCrew <b>AI</b><small class="by">by alberbehar</small></a>
   <span class="sp"></span>
-  <a class="l" href="#ofis" data-i="navO">Ofis</a>
+  <a class="l" href="#ofis" data-i="navO">Panel</a>
   <a class="l" href="#video" data-i="navV">Video</a>
   <a class="l" href="#kayit" data-i="nav0">Kayıt ol</a>
   <a class="l" href="#ozellikler" data-i="nav1">Özellikler</a>
@@ -153,11 +169,11 @@ footer .wrap{display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
 </div>
 
 <section id="ofis"><div class="wrap">
-  <div class="demo"><iframe id="demoFrame" src="ofis-demo.html" title="DeskCrew AI ofis" loading="lazy"></iframe><span class="live"><i></i><span data-i="live">Canlı 3D ofis</span></span></div>
+  <div class="demo"><iframe id="demoFrame" src="ofis-demo.html" title="DeskCrew AI ofis" loading="lazy"></iframe><span class="live"><i></i><span data-i="live">Canlı panel</span></span></div>
   <div class="chips3">
-    <div><b data-i="o1h">🏢 Ofisini büyüt</b><span data-i="o1p">Yeni oda ekle, odaları adlandır. Yeni çalışan alınca masası kendiliğinden kurulur.</span></div>
+    <div><b data-i="o1h">🪐 Ekibin bir gezegen sistemi</b><span data-i="o1p">Müdür ortada güneş, çalışanlar etrafında döner. Yeni çalışan alınca yeni bir gezegen doğar.</span></div>
     <div><b data-i="o2h">📅 Toplantı yap</b><span data-i="o2p">İstediğin çalışanları çağır; herkes kendi alanından brifing verir, Müdür özetler.</span></div>
-    <div><b data-i="o3h">👀 Kim ne yapıyor, gör</b><span data-i="o3p">Çalışanlar masasında yazar, toplantıda konuşur; balonlarında ne yaptıkları yazar. Fareyle döndürebilirsin.</span></div>
+    <div><b data-i="o3h">👀 Kim ne yapıyor, gör</b><span data-i="o3p">Gezegene tıkla, içine gir: o çalışan şu an ne yapıyor, kimlerle konuştu, hepsini gör.</span></div>
   </div>
 </div></section>
 
@@ -205,9 +221,9 @@ footer .wrap{display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
     <div class="card" style="--c:var(--op)"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div><h3 data-i="c4h">Bilgisayar kontrolü</h3><p data-i="c4p">Ekrana bakıp uygulama açar, tıklar, yazar; WhatsApp'tan mesaj gönderir. Önemli adımlarda önce sana sorar.</p></div>
     <div class="card" style="--c:var(--time)"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3 data-i="c5h">Zamanlanmış işler</h3><p data-i="c5p">"Her sabah 8'de maillerimi özetle" de, zamanı gelince kendiliğinden yapsın.</p></div>
     <div class="card" style="--c:#18202b"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 14.5c2.8.2 5 2.5 5 5.5"/></svg></div><h3 data-i="c6h">Müdür ve ekip toplantısı</h3><p data-i="c6p">Müdür işi bölüp ekibe dağıtır. "Ekip" sohbetinde herkes sırayla cevap verir.</p></div>
-    <div class="card" style="--c:#2f6fe0"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="8" height="18" rx="1"/><path d="M11 9h10v12H11M6 7h2M6 11h2M6 15h2"/></svg></div><h3 data-i="c7h">3D canlı ofis</h3><p data-i="c7p">Ekibin gerçek 3D bir ofiste çalışır: klavyede yazar, toplantıya geçer, ne yaptığı başının üstünde görünür. İstersen tam ekran izle.</p></div>
+    <div class="card" style="--c:#2f6fe0"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="8" height="18" rx="1"/><path d="M11 9h10v12H11M6 7h2M6 11h2M6 15h2"/></svg></div><h3 data-i="c7h">Canlı gezegen paneli</h3><p data-i="c7p">Ekibin bir gezegen sistemi gibi çalışır: işte olan gezegen parlar, işler bir gezegenden diğerine ışık olarak akar.</p></div>
     <div class="card" style="--c:#1ca078"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><h3 data-i="c8h">Toplantı ve brifing</h3><p data-i="c8p">"Toplantı yap" de, seçtiğin çalışanlar toplantı odasına geçsin; herkes günün raporunu versin, Müdür yapılacakları çıkarsın.</p></div>
-    <div class="card" style="--c:#d98a1c"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><h3 data-i="c9h">Büyüyen ofis</h3><p data-i="c9p">Yeni oda ekle (çalışma, toplantı, dinlenme), odaları adlandır, çalışanları taşı. Her yeni çalışana masa kendiliğinden açılır.</p></div>
+    <div class="card" style="--c:#d98a1c"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><h3 data-i="c9h">Birbirine danışan ekip</h3><p data-i="c9p">Çalışanlar işin ortasında birbirinden yardım ister; kim kiminle konuştuysa aralarında bağ çizgisi kalır.</p></div>
   </div>
 </div></section>
 
@@ -257,7 +273,7 @@ qh:"FAQ",q1:"Is it paid?",a1:"The app is free. It uses your own Anthropic API ke
 q2:"Is my data safe?",a2:"Your API key and Gmail password are stored in Windows Credential Manager on your computer only. Email is sent only when you ask, and the assistant never deletes files.",
 q3:"Windows shows an \"unknown publisher\" warning",a3:"The app isn't code-signed yet, so SmartScreen shows this warning. Click \"More info\" and then \"Run anyway\".",
 q4:"When is the Mac version coming?",a4:"We're working on it. Windows 10 and 11 are supported for now.",q5:"How do I uninstall?",a5:"Remove \"DeskCrew AI\" from Settings → Apps. If you reinstall, your settings come back.",
-navO:"Office",navV:"Video",vh:"DeskCrew AI in 40 seconds",vp:"Tell your team what you need; it researches, calls, emails, writes code and holds meetings.",live:"Live 3D office",o1h:"🏢 Grow your office",o1p:"Add rooms and name them. Hire someone and their desk is set up automatically.",o2h:"📅 Hold a meeting",o2p:"Invite whoever you want; each gives a briefing on their area and the Manager sums up.",o3h:"👀 See who is doing what",o3p:"They type at their desks and talk in meetings; speech bubbles show what each is doing. Drag to rotate.",c7h:"Live 3D office",c7p:"Your team works in a real 3D office: typing, moving to meetings, with what each one is doing shown above their head. Watch it full screen if you like.",c8h:"Meetings and briefings",c8p:"Say \"hold a meeting\" and the people you pick move to the meeting room; everyone reports on the day and the Manager lists next steps.",c9h:"An office that grows",c9p:"Add rooms (work, meeting, lounge), name them and move people around. Every new hire gets a desk automatically.",bh:"Hire your team today",bp:"Free download, one-minute setup.",rel:"All releases"};
+navO:"Dashboard",navV:"Video",vh:"DeskCrew AI in 40 seconds",vp:"Tell your team what you need; it researches, calls, emails, writes code and holds meetings.",live:"Live dashboard",o1h:"🪐 Your team as a solar system",o1p:"The Manager is the sun in the middle and the team orbits around it. Hire someone and a new planet appears.",o2h:"📅 Hold a meeting",o2p:"Invite whoever you want; each gives a briefing on their area and the Manager sums up.",o3h:"👀 See who is doing what",o3p:"Click a planet to step inside: see what that team member is doing and who they talked to.",c7h:"Live planet dashboard",c7p:"Your team works like a solar system: busy planets glow and work flows from one planet to another as light.",c8h:"Meetings and briefings",c8p:"Say \"hold a meeting\" and the people you pick move to the meeting room; everyone reports on the day and the Manager lists next steps.",c9h:"A team that helps each other",c9p:"Team members ask each other for help mid-task; a line stays between those who talked.",bh:"Hire your team today",bp:"Free download, one-minute setup.",rel:"All releases"};
 const TR={};document.querySelectorAll("[data-i]").forEach(e=>TR[e.dataset.i]=e.innerHTML);
 function setLang(l){document.documentElement.lang=l;const df=document.getElementById("demoFrame");if(df){const u="ofis-demo.html"+(l==="en"?"?lang=en":"");if(df.getAttribute("src")!==u)df.setAttribute("src",u)}const pv=document.getElementById("promo");if(pv){const v=l==="en"?"tanitim-en.mp4":"tanitim-tr.mp4";const so=pv.querySelector("source");if(so.getAttribute("src")!==v){so.setAttribute("src",v);pv.load()}}const d=l==="en"?EN:TR;document.querySelectorAll("[data-i]").forEach(e=>{if(d[e.dataset.i]!=null)e.innerHTML=d[e.dataset.i]});
   document.getElementById("lTr").classList.toggle("on",l==="tr");document.getElementById("lEn").classList.toggle("on",l==="en");try{localStorage.setItem("dc_lang",l)}catch(e){}}
